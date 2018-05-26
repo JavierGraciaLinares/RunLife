@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationPrepararEntrenamiento"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textViewPopupPreparandoEspereBody"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="PlanetaGirando.json"
+            app:lottie_imageAssetsFolder="assets"
+            app:lottie_loop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/textViewPopupPreparandoEspereBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewPopupPreparandoEspereHead"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/esperaBody_text"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPopupPreparandoEspereHead"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/textViewPopupPreparandoEspereHead"
+            android:layout_width="284dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/animationPrepararEntrenamiento"
+            android:layout_below="@+id/animationPrepararEntrenamiento"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/esperaHead_text"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/animationPrepararEntrenamiento"
+            android:layout_marginEnd="8dp" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

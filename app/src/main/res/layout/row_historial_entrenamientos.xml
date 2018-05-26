@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewHistorialVelocidadMedia"
+        android:layout_width="95dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="8dp"
+        android:text="TextView"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialVelocidadMedia"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialVelocidadMedia"
+        android:layout_marginTop="13dp" />
+
+    <ImageView
+        android:id="@+id/imageViewHistorialVelocidadMedia"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/speed48px"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialDistancia"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textViewHistorialFecha" />
+
+    <ImageView
+        android:id="@+id/imageViewHistorialDistancia"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/distance48px"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHistorialDuracionEntrenamiento" />
+
+    <TextView
+        android:id="@+id/textViewHistorialFecha"
+        android:layout_width="138dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="8dp"
+        android:text="TextView"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialTipoEntrenamiento"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialTipoEntrenamiento"
+        android:layout_marginTop="8dp" />
+
+    <ImageView
+        android:id="@+id/imageViewHistorialTipoEntrenamiento"
+        android:layout_width="77dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/imageViewHistorialDuracionEntrenamiento"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/time48px"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/textViewHistorialFecha"
+        android:layout_marginLeft="8dp" />
+
+    <TextView
+        android:id="@+id/textViewHistorialDuracionEntrenamiento"
+        android:layout_width="78dp"
+        android:layout_height="21dp"
+        android:text="TextView"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:id="@+id/textViewHistorialDistancia"
+        android:layout_width="78dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="13dp"
+        android:text="TextView"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialDistancia"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialDistancia" />
+
+</android.support.constraint.ConstraintLayout>

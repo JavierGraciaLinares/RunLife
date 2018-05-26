@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name" translatable="false">RunLife</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configuración</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="libreString">Libre</string>
+    <string name="tiempoString">Tiempo</string>
+    <string name="datosString">Datos</string>
+    <string name="historialString">Historial</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_informacion_entrenamiento">InformacionEntrenamientoActivity
+    </string>
+    <string name="title_activity_borrar">Map</string>
+    <string name="title_activity_delete">Map</string>
+    <string name="esperaHead_text">Espere...</string>
+    <string name="esperaBody_text">Por favor no se mueva, espere a que se calibre el GPS. A continuación comenzará su entrenamiento.</string>
+</resources>
