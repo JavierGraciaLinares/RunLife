@@ -12,7 +12,6 @@
     <string name="title_activity_borrar">Map</string>
     <string name="title_activity_delete">Map</string>
     <string name="title_activity_informacion_entrenamiento">Informacion Entrenamiento</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="title_activity_test">TestActivity</string>
 </resources>

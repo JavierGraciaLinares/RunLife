@@ -2,13 +2,15 @@ package com.example.alumno.runlife.fragmentsEntrenamientos;
 
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Location;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,12 +24,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.alumno.runlife.Animaciones;
-import com.example.alumno.runlife.InformacionEntrenamientoActivity;
-import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
 import com.example.alumno.runlife.herramientas.Popup;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,6 +38,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -54,6 +60,7 @@ public class FragmentEntrenamientoLibre extends Fragment {
     TextView textViewDistanciaRecorrida;
     TextView textViewVelocidad;
     FloatingActionButton buttonEmpezarEntrenamiento;
+    private Dialog popup;
 
     private FusedLocationProviderClient aClient;
     private LocationRequest aRequest;
@@ -84,20 +91,19 @@ public class FragmentEntrenamientoLibre extends Fragment {
         cronometro.setBase(entrenamiento.getTiempoPausa() + SystemClock.elapsedRealtime());
         cronometro.start();
         entrenamiento.setTiempoPausa(0);
-        entrenamiento.setEnMarcha(true);
-        //botonStart.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pause64px));
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), "android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{"android.permission.ACCESS_FINE_LOCATION"}, RESPONSE);
         } else {
             aCallback = new LocationCallback() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
                     Location localizacionActual = locationResult.getLastLocation();
                     double distanciaEntreDosPuntos;
 
-                    if(entrenamiento.numeroLocalizacion==0){
+                    if (entrenamiento.numeroLocalizacion == 0) {
                         entrenamiento.setLocalizacionAnterior(localizacionActual);
                     }
                     distanciaEntreDosPuntos = entrenamiento.getLocalizacionAnterior().distanceTo(localizacionActual);
@@ -107,9 +113,9 @@ public class FragmentEntrenamientoLibre extends Fragment {
                     if (entrenamiento.numeroLocalizacion < 5 || (distanciaEntreDosPuntos > 10 && !entrenamiento.isEnMarcha())) {
                         entrenamiento.numeroLocalizacion++;
                     } else if (!entrenamiento.isEnMarcha()) {
-                        //POPUP Ponerlo a true
-                        Log.i(TAGDEBUG, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
+                        calibracionGPSFinalizada();
                     } else {
+                        Log.i(TAGDEBUG, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
                         if (distanciaEntreDosPuntos > 10 && distanciaEntreDosPuntos < 50) {
                             // Distancia Recorrida
                             entrenamiento.setDistanciaRecorrida(entrenamiento.distanciaRecorrida += distanciaEntreDosPuntos);
@@ -140,7 +146,6 @@ public class FragmentEntrenamientoLibre extends Fragment {
         entrenamiento.setTiempoPausa(cronometro.getBase() - SystemClock.elapsedRealtime());
         cronometro.stop();
         entrenamiento.setEnMarcha(false);
-        //botonStart.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.play));
         aClient.removeLocationUpdates(aCallback);
     }
 
@@ -216,16 +221,28 @@ public class FragmentEntrenamientoLibre extends Fragment {
 
     private void prepararPopUpEntrenamiento() {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
-        Dialog popup = Popup.mostrarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
+        popup = Popup.mostrarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
         popup.show();
-        TextView textViewPopupPreparandoEspereHead = (TextView) popup.findViewById(R.id.textViewPopupPreparandoEspereHead);
-        textViewPopupPreparandoEspereHead.setText("MIMI");
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
         mediaPlayer.start();
     }
 
-    private void calibrarGPS() {
+    private void calibracionGPSFinalizada() {
+
+        LottieAnimationView animationPrepararEntrenamiento = popup.findViewById(R.id.animationPrepararEntrenamiento);
+
+        animationPrepararEntrenamiento.setAnimation("CheckMarkSuccessData.json");
+        Animation animation = new Animation() {
+            @Override
+            public void setRepeatCount(int repeatCount) {
+                super.setRepeatCount(3);
+                super.setBackgroundColor(Color.BLUE);
+            }
+        };
+        animationPrepararEntrenamiento.playAnimation();
+        animationPrepararEntrenamiento.startAnimation(animation);
 
     }
+
 
 }
