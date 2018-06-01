@@ -68,13 +68,16 @@ public class Entrenamiento {
         this.idEntrenamiento = idEntrenamiento;
     }
 
-    public double calcularMinutosXKilometros(long elapsedRealtime, long crono, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
+    public double calcularKmXHMedia(long elapsedRealtime, long crono, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
         tiempoEntrenamiento = elapsedRealtime - crono;
-        /*int hours = (int) (timeAux / 3600000);
-          int minutes = (int) (timeAux - hours * 3600000) / 60000;
-          int seconds = (int) (timeAux - hours * 3600000 - minutes * 60000) / 1000;
-          Log.i(TAGDEVELOP, "Crono: " + hours + ":" + minutes + ":" + seconds);*/
-        return ((distanciaEntreDosPuntos / (tiempoEntrenamiento / 1000)) * 16.666666666667);
+        Log.i(TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
+        return ((distanciaEntreDosPuntos / (tiempoEntrenamiento / 1000))*3.6);//Metros/Segundo
+    }
+
+    public double calcularKmXHActuales(long tiempoAnterior, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
+        long diferenciaTiempos = tiempoAnterior-tiempoEntrenamiento;
+        Log.i(TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempo entre dos puntos: " + diferenciaTiempos/1000);
+        return ((distanciaEntreDosPuntos / (diferenciaTiempos / 1000))*3.6);//Metros/Segundo
     }
 
     public void anyadirPuntoDeRutaRecorrido(Location localizacion) {

@@ -1,49 +1,43 @@
 package com.example.alumno.runlife.fragmentsEntrenamientos;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.alumno.runlife.Carrera;
 import com.example.alumno.runlife.InformacionEntrenamientoActivity;
-import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.adapters.ArrayAdapterHistorial;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.alumno.runlife.adapters.ArrayAdapterCarreras;
+import com.example.alumno.runlife.jsonLector.IJsonCarrera;
+import com.example.alumno.runlife.jsonLector.JsonAsyncTask;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHistorial extends Fragment {
+public class FragmentCarreras extends Fragment implements IJsonCarrera {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-    ArrayList<Entrenamiento> arrayListHistorialEntrenamientos = new ArrayList<>();
+    ArrayList<Carrera> arrayListCarreras = new ArrayList<>();
+    private FragmentCarreras fragmentCarreras = this;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference entrenamientosRef = db.collection("entrenamiento");
 
     ListView listViewlistaHistorial;
-    ArrayAdapterHistorial arrayAdapterHistorial;
+    ArrayAdapterCarreras arrayAdapterCarreras;
 
-    public FragmentHistorial() {
+    public FragmentCarreras() {
 
     }
 
@@ -55,18 +49,18 @@ public class FragmentHistorial extends Fragment {
         this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
 
 
-        arrayAdapterHistorial = new ArrayAdapterHistorial(rootView.getContext(), R.layout.row_historial_entrenamientos, arrayListHistorialEntrenamientos);
-        listViewlistaHistorial.setAdapter(arrayAdapterHistorial);
+        arrayAdapterCarreras = new ArrayAdapterCarreras(rootView.getContext(), R.layout.row_carrera, arrayListCarreras);
+        listViewlistaHistorial.setAdapter(arrayAdapterCarreras);
 
         listViewlistaHistorial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent anIntent = new Intent(rootView.getContext(), InformacionEntrenamientoActivity.class);
-                anIntent.putExtra(Entrenamiento.IDENTRENAMIENTO,arrayListHistorialEntrenamientos.get(i).getIdEntrenamiento());
+                //anIntent.putExtra(Entrenamiento.IDENTRENAMIENTO,arrayListCarreras.get(i).getIdEntrenamiento());
                 startActivity(anIntent);
             }
         });
-        db.collection("Entrenamiento")
+        /*db.collection("Entrenamiento")
                 .whereEqualTo("Usuario", MainActivity.cuentaGoogleUsuario.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -78,14 +72,18 @@ public class FragmentHistorial extends Fragment {
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = new ArrayList<GeoPoint>();
                                 //puntoDeRutaArrayList.addAll(((HashMap<String, GeoPoint>) entrenamientoQuery.get("Recorrido")).values());
                                 //puntoDeRutaArrayList = (ArrayList<PuntoDeRuta>) entrenamientoQuery.get("Recorrido");
-                                arrayListHistorialEntrenamientos.add(new Entrenamiento(new Timestamp(((Date)entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA),entrenamientoQuery.getId()));
-                                arrayAdapterHistorial.notifyDataSetChanged();
+                                //arrayListCarreras.add(new Entrenamiento(new Timestamp(((Date)entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA),entrenamientoQuery.getId()));
+                                arrayAdapterCarreras.add(new Carrera(1,"Titulo","Descripcion"));
+                                arrayAdapterCarreras.notifyDataSetChanged();
                             }
                         } else {
                             Log.d(TAGDEVELOP, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                });*/
+        JsonAsyncTask jsonAsyncTask = new JsonAsyncTask(fragmentCarreras);
+        jsonAsyncTask.execute();
+        arrayAdapterCarreras.notifyDataSetChanged();
         // Inflate the layout for this fragment
         return rootView;
 
@@ -97,4 +95,9 @@ public class FragmentHistorial extends Fragment {
 
     }
 
+    @Override
+    public void addCarreraJson(Carrera carrera) {
+        arrayListCarreras.add(carrera);
+        arrayAdapterCarreras.notifyDataSetChanged();
+    }
 }

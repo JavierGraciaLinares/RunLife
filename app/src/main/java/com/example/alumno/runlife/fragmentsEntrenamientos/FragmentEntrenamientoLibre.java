@@ -2,12 +2,10 @@ package com.example.alumno.runlife.fragmentsEntrenamientos;
 
 
 import android.Manifest;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.location.Location;
@@ -26,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Chronometer;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -38,9 +35,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -58,7 +52,8 @@ public class FragmentEntrenamientoLibre extends Fragment {
 
     Chronometer cronometro;
     TextView textViewDistanciaRecorrida;
-    TextView textViewVelocidad;
+    TextView textViewVelocidadMedia;
+    TextView textViewVelocidadActual;
     FloatingActionButton buttonEmpezarEntrenamiento;
     private Dialog popup;
 
@@ -121,14 +116,14 @@ public class FragmentEntrenamientoLibre extends Fragment {
                             entrenamiento.setDistanciaRecorrida(entrenamiento.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamiento.getDistanciarecorridaEnKMString());
 
-                            //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
-                            //Insertar PUNTO DE RUTA
-                            entrenamiento.anyadirPuntoDeRutaRecorrido(localizacionActual);
-                            //Calcular y Mostrar VELOCIDAD
-                            textViewVelocidad.setText(String.format("%.2f", entrenamiento.calcularMinutosXKilometros(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "min/Km"); //metros/segundo* tranformación para min/km
 
                         }
-
+                        //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
+                        //Insertar PUNTO DE RUTA
+                        entrenamiento.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                        //Calcular y Mostrar VELOCIDAD MEDIA
+                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamiento.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
+                        textViewVelocidadActual.setText(String.format("%.2f", entrenamiento.calcularKmXHActuales(cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h");
 
                         Log.i(TAGDEVELOP, "Tiempo Anterior: " + entrenamiento.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
@@ -173,7 +168,8 @@ public class FragmentEntrenamientoLibre extends Fragment {
 
     private void iniciarElementosDeLaVentana() {
         textViewDistanciaRecorrida = (TextView) getView().findViewById(R.id.textViewDistanciaRecorrida);
-        textViewVelocidad = (TextView) getView().findViewById(R.id.textViewVelocidad);
+        textViewVelocidadMedia = (TextView) getView().findViewById(R.id.textViewVelocidadMedia);
+        textViewVelocidadActual = (TextView) getView().findViewById(R.id.textViewVelocidadActual);
         cronometro = (Chronometer) getView().findViewById(R.id.chronometerEntrenamientoLibre);
         buttonEmpezarEntrenamiento = (FloatingActionButton) getView().findViewById(R.id.buttonEmpezarEntrenamiento);
 
@@ -222,13 +218,13 @@ public class FragmentEntrenamientoLibre extends Fragment {
     private void prepararPopUpEntrenamiento() {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         popup = Popup.mostrarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
-        popup.show();
+        //popup.show();
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
         mediaPlayer.start();
     }
 
     private void calibracionGPSFinalizada() {
-
+        entrenamiento.setEnMarcha(true); //Esto poerlo al aceptar en el popup
         LottieAnimationView animationPrepararEntrenamiento = popup.findViewById(R.id.animationPrepararEntrenamiento);
 
         animationPrepararEntrenamiento.setAnimation("CheckMarkSuccessData.json");

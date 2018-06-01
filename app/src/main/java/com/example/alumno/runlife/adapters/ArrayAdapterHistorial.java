@@ -2,7 +2,6 @@ package com.example.alumno.runlife.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +17,6 @@ import com.example.alumno.runlife.fragmentsEntrenamientos.Entrenamiento;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by javi on 17/05/2018.
@@ -57,11 +55,11 @@ public class ArrayAdapterHistorial extends ArrayAdapter<Entrenamiento> {
         }
 
         //Iniciamos Elementos de la fila
-        textViewHistorialFecha = (TextView) returnView.findViewById(R.id.textViewHistorialFecha);
+        textViewHistorialFecha = (TextView) returnView.findViewById(R.id.textViewCarreraFecha);
         textViewHistorialDuracionEntrenamiento = (TextView) returnView.findViewById(R.id.textViewHistorialDuracionEntrenamiento);
         textViewHistorialVelocidadMedia = (TextView) returnView.findViewById(R.id.textViewHistorialVelocidadMedia);
-        imageViewHistorialTipoEntrenamiento = (ImageView) returnView.findViewById(R.id.imageViewHistorialTipoEntrenamiento);
-        imageViewHistorialDuracionEntrenamiento = (ImageView) returnView.findViewById(R.id.imageViewHistorialDuracionEntrenamiento);
+        imageViewHistorialTipoEntrenamiento = (ImageView) returnView.findViewById(R.id.imageViewCarreraDistancia);
+        imageViewHistorialDuracionEntrenamiento = (ImageView) returnView.findViewById(R.id.imageViewCarreraFecha);
         imageViewHistorialVelocidadMedia = (ImageView) returnView.findViewById(R.id.imageViewHistorialVelocidadMedia);
         textViewHistorialDistancia = (TextView) returnView.findViewById(R.id.textViewHistorialDistancia);
 

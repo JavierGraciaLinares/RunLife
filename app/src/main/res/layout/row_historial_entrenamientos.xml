@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageViewHistorialDistancia"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textViewHistorialFecha" />
+        app:layout_constraintLeft_toLeftOf="@+id/textViewCarreraFecha" />
 
     <ImageView
         android:id="@+id/imageViewHistorialDistancia"
@@ -33,22 +33,22 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/distance48px"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        app:layout_constraintLeft_toLeftOf="@+id/imageViewCarreraFecha"
         android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHistorialDuracionEntrenamiento" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCarreraFecha" />
 
     <TextView
-        android:id="@+id/textViewHistorialFecha"
+        android:id="@+id/textViewCarreraFecha"
         android:layout_width="138dp"
         android:layout_height="18dp"
         android:layout_marginLeft="8dp"
         android:text="TextView"
-        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialTipoEntrenamiento"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialTipoEntrenamiento"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewCarreraDistancia"
+        app:layout_constraintTop_toTopOf="@+id/imageViewCarreraDistancia"
         android:layout_marginTop="8dp" />
 
     <ImageView
-        android:id="@+id/imageViewHistorialTipoEntrenamiento"
+        android:id="@+id/imageViewCarreraDistancia"
         android:layout_width="77dp"
         android:layout_height="79dp"
         android:layout_marginLeft="8dp"
@@ -59,14 +59,14 @@
         app:srcCompat="@color/colorPrimary" />
 
     <ImageView
-        android:id="@+id/imageViewHistorialDuracionEntrenamiento"
+        android:id="@+id/imageViewCarreraFecha"
         android:layout_width="39dp"
         android:layout_height="39dp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/time48px"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/textViewHistorialFecha"
+        app:layout_constraintLeft_toRightOf="@+id/textViewCarreraFecha"
         android:layout_marginLeft="8dp" />
 
     <TextView
@@ -74,9 +74,9 @@
         android:layout_width="78dp"
         android:layout_height="21dp"
         android:text="TextView"
-        app:layout_constraintLeft_toRightOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        app:layout_constraintLeft_toRightOf="@+id/imageViewCarreraFecha"
         android:layout_marginLeft="8dp"
-        app:layout_constraintTop_toTopOf="@+id/imageViewHistorialDuracionEntrenamiento"
+        app:layout_constraintTop_toTopOf="@+id/imageViewCarreraFecha"
         android:layout_marginTop="13dp" />
 
     <TextView

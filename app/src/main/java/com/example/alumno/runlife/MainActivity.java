@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoLibre;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoTiempo;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentHistorial;
@@ -206,9 +207,9 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
             fragmentTransaction.commit();
         } else if (id == R.id.nav_send) {
-            /*FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new MapFragment());
-            fragmentTransaction.commit();*/
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentCarreras());
+            fragmentTransaction.commit();
             /*Intent anIntent = new Intent(getApplicationContext(), DELETE.class);
             startActivity(anIntent);*/
         }
