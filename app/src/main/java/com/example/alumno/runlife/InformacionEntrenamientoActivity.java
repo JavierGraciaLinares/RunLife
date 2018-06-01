@@ -40,7 +40,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
     public static final String TAGDEBUG = "TAGDEBUG";
     //private LinearLayout popupInformacionEntrenamiento;
     public Entrenamiento entrenamientoVisualizado;
-    TextView textViewPopupTipoEntrenamiento;
+    TextView textViewPopupHistorialDistancia;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleMap mMap;
 
@@ -58,7 +58,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
 
         Intent anIntent = getIntent();
         String idEntrenamiento = anIntent.getStringExtra(Entrenamiento.IDENTRENAMIENTO);
-        textViewPopupTipoEntrenamiento = (TextView) findViewById(R.id.textViewPopupPreparandoEspereHead);
+        textViewPopupHistorialDistancia = (TextView) findViewById(R.id.textViewPopupHistorialDistancia);
 
         db.collection("Entrenamiento")
                 .whereEqualTo(FieldPath.documentId(), idEntrenamiento)
@@ -95,6 +95,8 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+
+        textViewPopupHistorialDistancia.setText("10km");
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

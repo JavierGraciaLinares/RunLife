@@ -12,7 +12,7 @@
         >
 
         <TextView
-            android:id="@+id/textViewPopupPreparandoEspereHead"
+            android:id="@+id/textViewPopupHistorialDistancia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
@@ -22,7 +22,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewPopupPreparandoEspereBody"
+            android:id="@+id/textViewPopupHistorialTiempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

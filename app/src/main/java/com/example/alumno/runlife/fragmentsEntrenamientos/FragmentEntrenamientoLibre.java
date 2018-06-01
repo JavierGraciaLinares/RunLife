@@ -82,11 +82,7 @@ public class FragmentEntrenamientoLibre extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void empezarEntrenamiento() {
-        cronometro.setBase(entrenamiento.getTiempoPausa() + SystemClock.elapsedRealtime());
-        cronometro.start();
-        entrenamiento.setTiempoPausa(0);
-
+    private void entrenamientoOperaciones() {
         if (ActivityCompat.checkSelfPermission(this.getContext(), "android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{"android.permission.ACCESS_FINE_LOCATION"}, RESPONSE);
         } else {
@@ -218,13 +214,12 @@ public class FragmentEntrenamientoLibre extends Fragment {
     private void prepararPopUpEntrenamiento() {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         popup = Popup.mostrarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
-        //popup.show();
+        popup.show();
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
         mediaPlayer.start();
     }
 
     private void calibracionGPSFinalizada() {
-        entrenamiento.setEnMarcha(true); //Esto poerlo al aceptar en el popup
         LottieAnimationView animationPrepararEntrenamiento = popup.findViewById(R.id.animationPrepararEntrenamiento);
 
         animationPrepararEntrenamiento.setAnimation("CheckMarkSuccessData.json");
@@ -238,6 +233,13 @@ public class FragmentEntrenamientoLibre extends Fragment {
         animationPrepararEntrenamiento.playAnimation();
         animationPrepararEntrenamiento.startAnimation(animation);
 
+    }
+
+    private void empezarEntrenamiento(){
+        entrenamiento.setEnMarcha(true);
+        cronometro.setBase(entrenamiento.getTiempoPausa() + SystemClock.elapsedRealtime());
+        cronometro.start();
+        entrenamiento.setTiempoPausa(0);
     }
 
 

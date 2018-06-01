@@ -4,7 +4,7 @@
     <string name="datosString">Datos</string>
     <string name="esperaBody_text">Por favor no se mueva, espere a que se calibre el GPS. A continuación comenzará su entrenamiento.</string>
     <string name="esperaHead_text">Espere...</string>
-    <string name="historialString">Historial</string>
+    <string name="historialString">Historial Entrenamientos</string>
     <string name="libreString">Libre</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -14,4 +14,5 @@
     <string name="title_activity_informacion_entrenamiento">Informacion Entrenamiento</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="carreras_string">Calendario Carreras</string>
 </resources>

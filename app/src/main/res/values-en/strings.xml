@@ -3,11 +3,12 @@
     <string name="datosString">Data</string>
     <string name="action_settings">Settings</string>
     <string name="esperaHead_text">Wait...</string>
-    <string name="historialString">History</string>
-    <string name="libreString"></string>
+    <string name="historialString">History Training</string>
+    <string name="libreString">Free</string>
     <string name="tiempoString">Time</string>
     <string name="title_activity_borrar">Map</string>
     <string name="title_activity_delete">Map</string>
     <string name="title_activity_informacion_entrenamiento">Trinning Information</string>
     <string name="title_activity_maps">Map</string>
+    <string name="carreras_string">Racing Calendar</string>
 </resources>

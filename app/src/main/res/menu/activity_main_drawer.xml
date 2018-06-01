@@ -24,12 +24,12 @@
         <menu>
             <item
                 android:id="@+id/menu_historial"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/trainning"
                 android:title="@string/historialString" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/menu_carreras"
+                android:icon="@drawable/competiciones"
+                android:title="@string/carreras_string" />
         </menu>
     </item>
 
