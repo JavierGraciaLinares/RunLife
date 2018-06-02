@@ -1,5 +1,6 @@
 package com.example.alumno.runlife.jsonLector;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.example.alumno.runlife.Carrera;
@@ -73,7 +74,7 @@ public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
                         String nombre = carreraJson.getString(NOMBRE);
                         String descripcion = carreraJson.getString(DESCRIPCION);
                         String distancia = carreraJson.getString(DISTANCIA);
-                        URI enlace = URI.create(carreraJson.getString(ENLACE));
+                        Uri enlace = Uri.parse(carreraJson.getString(ENLACE));
                         publishProgress(new Carrera(fecha,hora,lugar,nombre,descripcion,distancia,enlace));
                     } catch (ParseException e) {
                         e.printStackTrace();

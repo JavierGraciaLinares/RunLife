@@ -17,9 +17,9 @@ public class Carrera {
     private String nombre;
     private String descripcion;
     private String distancia;
-    private URI link;
+    private Uri link;
 
-    public Carrera(Date fecha, String hora, String lugar, String nombre, String descripcion, String distancia, URI link) {
+    public Carrera(Date fecha, String hora, String lugar, String nombre, String descripcion, String distancia, Uri link) {
         this.fecha = fecha;
         this.hora = hora;
         this.lugar = lugar;
@@ -69,11 +69,11 @@ public class Carrera {
         this.descripcion = descripcion;
     }
 
-    public URI getLink() {
+    public Uri getLink() {
         return link;
     }
 
-    public void setLink(URI link) {
+    public void setLink(Uri link) {
         this.link = link;
     }
 
