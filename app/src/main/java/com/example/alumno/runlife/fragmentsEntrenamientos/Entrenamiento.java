@@ -23,8 +23,6 @@ import java.util.Map;
  */
 
 public class Entrenamiento {
-    public static final String TAGDEVELOP = "TAGDEVELOP";
-    public static final String TAGDEBUG = "TAGDEBUG";
 
     public static final String FECHAENTRENAMIENTO = "FechaEntrenamiento";
     public static final String DISTANCIARECORRIDA = "DistanciaRecorrida";
@@ -74,13 +72,13 @@ public class Entrenamiento {
 
     public double calcularKmXHMedia(long elapsedRealtime, long crono, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
         tiempoEntrenamiento = elapsedRealtime - crono;
-        Log.i(TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
+        Log.i(MainActivity.TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
         return ((distanciaEntreDosPuntos / (tiempoEntrenamiento / 1000))*3.6);//Metros/Segundo
     }
 
     public double calcularKmXHActuales(long tiempoAnterior, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
         long diferenciaTiempos = tiempoAnterior-tiempoEntrenamiento;
-        Log.i(TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempo entre dos puntos: " + diferenciaTiempos/1000);
+        Log.i(MainActivity.TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempo entre dos puntos: " + diferenciaTiempos/1000);
         return ((distanciaEntreDosPuntos / (diferenciaTiempos / 1000))*3.6);//Metros/Segundo
     }
 
@@ -117,13 +115,13 @@ public class Entrenamiento {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAGDEBUG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Log.d(MainActivity.TAGDEBUG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAGDEBUG, "Error adding document", e);
+                        Log.w(MainActivity.TAGDEBUG, "Error adding document", e);
                     }
                 });
 

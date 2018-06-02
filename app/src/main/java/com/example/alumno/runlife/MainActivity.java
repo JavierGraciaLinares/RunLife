@@ -1,5 +1,6 @@
 package com.example.alumno.runlife;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -35,6 +36,11 @@ import com.google.android.gms.common.api.ResultCallback;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+
+    public static final String TAGDEVELOP = "TAGDEVELOP";
+    public static final String TAGDEBUG = "TAGDEBUG";
+
+
     public static final int RESPUESTAPERMISOS = 1;
     public static GoogleSignInAccount cuentaGoogleUsuario;
 
@@ -209,6 +215,9 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentCarreras());
             fragmentTransaction.commit();
+        }else if (id == R.id.menu_ayuda) {
+            Intent intent = new Intent(this,TutorialActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.alumno.runlife.Animaciones;
+import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
 import com.example.alumno.runlife.herramientas.Popup;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,8 +45,6 @@ import java.util.Locale;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech.OnInitListener {
 
-    public static final String TAGDEVELOP = "TAGDEVELOP";
-    public static final String TAGDEBUG = "TAGDEBUG";
     public static final int RESPONSE = 1;
     private boolean textToSpeechEnabled = false;
     private TextToSpeech textToSpeech;
@@ -104,14 +103,14 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
                     }
                     distanciaEntreDosPuntos = entrenamiento.getLocalizacionAnterior().distanceTo(localizacionActual);
                     entrenamiento.setLocalizacionAnterior(localizacionActual);
-                    Log.i(TAGDEBUG, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
+                    Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
 
                     if (entrenamiento.numeroLocalizacion < 5 || (distanciaEntreDosPuntos > 10 && !entrenamiento.isEnMarcha())) {
                         entrenamiento.numeroLocalizacion++;
                     } else if (!entrenamiento.isEnMarcha()) {
                         calibracionGPSFinalizada();
                     } else {
-                        Log.i(TAGDEBUG, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
+                        Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
                         if (distanciaEntreDosPuntos > 10 && distanciaEntreDosPuntos < 50) {
                             // Distancia Recorrida
                             entrenamiento.setDistanciaRecorrida(entrenamiento.distanciaRecorrida += distanciaEntreDosPuntos);
@@ -126,12 +125,12 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
 
                         }
 
-                        Log.i(TAGDEVELOP, "Tiempo Anterior: " + entrenamiento.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
+                        Log.i(MainActivity.TAGDEVELOP, "Tiempo Anterior: " + entrenamiento.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
 
                     entrenamiento.setTiempoAnterior(SystemClock.elapsedRealtime());
                     //Log.i(TAGDEBUG, "Posicion " + localizacionActual.getLatitude() + " " + localizacionActual.getLongitude() + "   Distancia: " + entrenamiento.getDistanciaRecorrida() + " metros");
-                    Log.i(TAGDEBUG, "                                              - Distancia: " + entrenamiento.getDistanciaRecorrida() + " metros");
+                    Log.i(MainActivity.TAGDEVELOP, "                                              - Distancia: " + entrenamiento.getDistanciaRecorrida() + " metros");
                 }
             };
             aClient.requestLocationUpdates(aRequest, aCallback, null);
@@ -263,14 +262,14 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
             int result = textToSpeech.setLanguage(Locale.getDefault());
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e(TAGDEBUG, "Lenguaje no soportado");
+                Log.e(MainActivity.TAGDEVELOP, "Lenguaje no soportado");
                 textToSpeechEnabled = false;
             } else {
                 textToSpeechEnabled = true;
             }
 
         } else {
-            Log.e(TAGDEBUG, "Error Text To Speach");
+            Log.e(MainActivity.TAGDEVELOP, "Error Text To Speach");
         }
     }
 
