@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.menu_carreras) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentCarreras());
             fragmentTransaction.commit();

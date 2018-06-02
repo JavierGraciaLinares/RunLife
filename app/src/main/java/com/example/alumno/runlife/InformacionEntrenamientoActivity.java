@@ -1,5 +1,6 @@
 package com.example.alumno.runlife;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
     TextView textViewPopupHistorialDistancia;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleMap mMap;
+    Dialog popup;
 
 
     @Override
@@ -58,8 +60,9 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
 
         Intent anIntent = getIntent();
         String idEntrenamiento = anIntent.getStringExtra(Entrenamiento.IDENTRENAMIENTO);
-        textViewPopupHistorialDistancia = (TextView) findViewById(R.id.textViewPopupHistorialDistancia);
 
+        popup = Popup.generarPopUp(InformacionEntrenamientoActivity.this, R.layout.popup_informacion_entrenamiento, Popup.POPUP_NO_MODAL);
+        textViewPopupHistorialDistancia = (TextView) popup.findViewById(R.id.textViewPopupHistorialDistancia);
         db.collection("Entrenamiento")
                 .whereEqualTo(FieldPath.documentId(), idEntrenamiento)
                 .get()
@@ -71,7 +74,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                                 //Añadir puntos de ruta
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = (ArrayList<GeoPoint>) entrenamientoQuery.get("Recorrido");
                                 entrenamientoVisualizado = new Entrenamiento(new Timestamp(((Date) entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO), (long) entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA), entrenamientoQuery.getId());
-
+                                textViewPopupHistorialDistancia.setText(String.format("%.2f", ((double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA) / 1000)) + " Km");
 
                             }
                             //Dibujar Ruta en el Mapa
@@ -87,6 +90,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                                         .color(Color.RED));
                                 anteriorPuntoDeRuta = puntoDeRuta;
                             }
+
                         } else {
                             Log.d(TAGDEVELOP, "Error getting documents: ", task.getException());
                         }
@@ -96,14 +100,13 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-        textViewPopupHistorialDistancia.setText("10km");
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                Popup.mostrarPopUp(InformacionEntrenamientoActivity.this,R.layout.popup_informacion_entrenamiento,Popup.POPUP_NO_MODAL).show();
+                popup.show();
+
             }
         });
     }

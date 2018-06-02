@@ -55,32 +55,10 @@ public class FragmentCarreras extends Fragment implements IJsonCarrera {
         listViewlistaHistorial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent anIntent = new Intent(rootView.getContext(), InformacionEntrenamientoActivity.class);
-                //anIntent.putExtra(Entrenamiento.IDENTRENAMIENTO,arrayListCarreras.get(i).getIdEntrenamiento());
-                startActivity(anIntent);
+
             }
         });
-        /*db.collection("Entrenamiento")
-                .whereEqualTo("Usuario", MainActivity.cuentaGoogleUsuario.getEmail())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot entrenamientoQuery : task.getResult()) {
-                                Log.d(TAGDEVELOP, entrenamientoQuery.getId() + " => " + entrenamientoQuery.getData());
-                                ArrayList<GeoPoint> puntoDeRutaArrayList = new ArrayList<GeoPoint>();
-                                //puntoDeRutaArrayList.addAll(((HashMap<String, GeoPoint>) entrenamientoQuery.get("Recorrido")).values());
-                                //puntoDeRutaArrayList = (ArrayList<PuntoDeRuta>) entrenamientoQuery.get("Recorrido");
-                                //arrayListCarreras.add(new Entrenamiento(new Timestamp(((Date)entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA),entrenamientoQuery.getId()));
-                                arrayAdapterCarreras.add(new Carrera(1,"Titulo","Descripcion"));
-                                arrayAdapterCarreras.notifyDataSetChanged();
-                            }
-                        } else {
-                            Log.d(TAGDEVELOP, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });*/
+
         JsonAsyncTask jsonAsyncTask = new JsonAsyncTask(fragmentCarreras);
         jsonAsyncTask.execute();
         arrayAdapterCarreras.notifyDataSetChanged();
