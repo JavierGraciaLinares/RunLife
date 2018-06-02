@@ -3,6 +3,7 @@ package com.example.alumno.runlife;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoLibre;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoTiempo;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentHistorial;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
                 .requestEmail()
                 .build();
         googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -83,30 +83,29 @@ public class MainActivity extends AppCompatActivity
         textViewEmailPerfilUsuario = cabeceraView.findViewById(R.id.textViewEmailPerfilUsuario);
 
 
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStart() {
         super.onStart();
-     /*   OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if(opr.isDone()){
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             resultadoLogin(result);
-        }else{
+        } else {
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
                     resultadoLogin(googleSignInResult);
                 }
             });
-        }*/
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void resultadoLogin(GoogleSignInResult result){
-        if(result.isSuccess()){
+    private void resultadoLogin(GoogleSignInResult result) {
+        if (result.isSuccess()) {
             cuentaGoogleUsuario = result.getSignInAccount();
             textViewNombrePerfilUsuario.setText(cuentaGoogleUsuario.getDisplayName());
             textViewEmailPerfilUsuario.setText(cuentaGoogleUsuario.getEmail());
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }*/
 
-        }else{
+        } else {
             volverPantallaLogin();
         }
     }
@@ -146,8 +145,8 @@ public class MainActivity extends AppCompatActivity
     }*/
 
 
-    private void volverPantallaLogin(){
-        Intent anIntent = new Intent(this,LoginActivity.class);
+    private void volverPantallaLogin() {
+        Intent anIntent = new Intent(this, LoginActivity.class);
         startActivity(anIntent);
     }
 
@@ -194,9 +193,9 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentEntrenamientoLibre());
             fragmentTransaction.commit();
-        } else if (id == R.id.menu_entrenamientoTiempo) {
+        } else if (id == R.id.menu_entrenamientoDistancia) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentEntrenamientoTiempo());
+            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentEntrenamientoLibre());
             fragmentTransaction.commit();
         } else if (id == R.id.nav_slideshow) {
 
@@ -210,14 +209,13 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentCarreras());
             fragmentTransaction.commit();
-            /*Intent anIntent = new Intent(getApplicationContext(), DELETE.class);
-            startActivity(anIntent);*/
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

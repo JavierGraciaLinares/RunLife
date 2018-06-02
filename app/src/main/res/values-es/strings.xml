@@ -18,4 +18,5 @@
     <string name="okgps_string">Pulse Empezar</string>
     <string name="okgpsbody_string">GPS Calibrado correctamente. Pulse el botón para comenzar el entrenamiento.</string>
     <string name="comienzoEntrenamiento_voice">Comienza el entrenamiento</string>
+    <string name="distanciaString">Distancia</string>
 </resources>

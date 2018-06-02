@@ -32,6 +32,10 @@ public class Entrenamiento {
     public static final String VELOCIDADMEDIA = "VelocidadMedia";
     public static final String IDENTRENAMIENTO = "IDEntrenamiento";
 
+    public static final int ENTRENAMIENTO_LIBRE = 1;
+    public static final int ENTRENAMIENTO_DISTANCIA = 2;
+
+
     String idEntrenamiento;
 
     Timestamp horaDelEntrenamiento;

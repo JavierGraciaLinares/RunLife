@@ -117,14 +117,14 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
                             entrenamiento.setDistanciaRecorrida(entrenamiento.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamiento.getDistanciarecorridaEnKMString());
 
+                            //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
+                            //Insertar PUNTO DE RUTA
+                            entrenamiento.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                            //Calcular y Mostrar VELOCIDAD MEDIA
+                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamiento.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
+                            textViewVelocidadActual.setText(String.format("%.2f", entrenamiento.calcularKmXHActuales(cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h");
 
                         }
-                        //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
-                        //Insertar PUNTO DE RUTA
-                        entrenamiento.anyadirPuntoDeRutaRecorrido(localizacionActual);
-                        //Calcular y Mostrar VELOCIDAD MEDIA
-                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamiento.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
-                        textViewVelocidadActual.setText(String.format("%.2f", entrenamiento.calcularKmXHActuales(cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h");
 
                         Log.i(TAGDEVELOP, "Tiempo Anterior: " + entrenamiento.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
@@ -275,7 +275,9 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
     }
 
     private void decirConVoz(String texto) {
-        textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+        if (textToSpeechEnabled) {
+            textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
     @Override

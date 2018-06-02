@@ -40,7 +40,8 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
     public Entrenamiento entrenamientoVisualizado;
-    TextView textViewPopupHistorialDistancia;
+    private TextView textViewPopupHistorialDistancia;
+    private TextView textViewPopupHistorialTiempo;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleMap mMap;
     Dialog popup;
@@ -59,9 +60,8 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
 
         Intent anIntent = getIntent();
         String idEntrenamiento = anIntent.getStringExtra(Entrenamiento.IDENTRENAMIENTO);
+        creacionPopup();
 
-        popup = Popup.generarPopUp(InformacionEntrenamientoActivity.this, R.layout.popup_informacion_entrenamiento, Popup.POPUP_NO_MODAL);
-        textViewPopupHistorialDistancia = (TextView) popup.findViewById(R.id.textViewPopupHistorialDistancia);
         db.collection("Entrenamiento")
                 .whereEqualTo(FieldPath.documentId(), idEntrenamiento)
                 .get()
@@ -75,11 +75,16 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                                 entrenamientoVisualizado = new Entrenamiento(new Timestamp(((Date) entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO), (long) entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA), entrenamientoQuery.getId());
                                 textViewPopupHistorialDistancia.setText(String.format("%.2f", ((double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA) / 1000)) + " Km");
 
+                                long tiempoEntrenamiento = (long)entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO);
+                                int hours = (int) (tiempoEntrenamiento / 3600000);
+                                int minutes = (int) (tiempoEntrenamiento - hours * 3600000) / 60000;
+                                int seconds = (int) (tiempoEntrenamiento - hours * 3600000 - minutes * 60000) / 1000;
+                                textViewPopupHistorialTiempo.setText(String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
                             }
                             //Dibujar Ruta en el Mapa
                             GeoPoint anteriorPuntoDeRuta = entrenamientoVisualizado.getRecorrido().get(0);
-                            LatLng sydney = new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(sydney).title("Inicio"));
+                            LatLng posicionInicio = new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(posicionInicio).title("Inicio"));
                             CameraUpdate posicionCamara = CameraUpdateFactory.newLatLngZoom(new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude()), 14);
                             mMap.animateCamera(posicionCamara);
                             for (GeoPoint puntoDeRuta : entrenamientoVisualizado.getRecorrido()) {
@@ -105,6 +110,12 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
             }
         });
 
+    }
+
+    private void creacionPopup() {
+        popup = Popup.generarPopUp(InformacionEntrenamientoActivity.this, R.layout.popup_informacion_entrenamiento, Popup.POPUP_NO_MODAL);
+        textViewPopupHistorialDistancia = (TextView) popup.findViewById(R.id.textViewPopupHistorialDistancia);
+        textViewPopupHistorialTiempo = (TextView) popup.findViewById(R.id.textViewPopupHistorialTiempo);
     }
 
     @Override

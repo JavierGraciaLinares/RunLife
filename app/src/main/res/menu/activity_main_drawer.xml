@@ -4,12 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_entrenamientoLibre"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/runicon"
             android:title="@string/libreString" />
         <item
-            android:id="@+id/menu_entrenamientoTiempo"
-            android:icon="@drawable/time48px"
-            android:title="@string/tiempoString" />
+            android:id="@+id/menu_entrenamientoDistancia"
+            android:icon="@drawable/ruler"
+            android:title="@string/distanciaString" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
