@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -54,6 +55,8 @@ public class FragmentEntrenamientoLibre extends Fragment {
     TextView textViewDistanciaRecorrida;
     TextView textViewVelocidadMedia;
     TextView textViewVelocidadActual;
+    TextView textViewPopupPreparandoEspereHead;
+    TextView textViewPopupPreparandoEspereBody;
     FloatingActionButton buttonEmpezarEntrenamiento;
     private Dialog popup;
 
@@ -189,7 +192,6 @@ public class FragmentEntrenamientoLibre extends Fragment {
                     pausarEntrenamiento();
                 } else {
                     prepararPopUpEntrenamiento();
-                    empezarEntrenamiento();
                 }
             }
         });
@@ -199,7 +201,6 @@ public class FragmentEntrenamientoLibre extends Fragment {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         buttonEmpezarEntrenamiento.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorPrimary)));
         buttonEmpezarEntrenamiento.setImageResource(R.drawable.stop);
-
         //textViewPopupPreparandoEspereHead
     }
 
@@ -214,25 +215,31 @@ public class FragmentEntrenamientoLibre extends Fragment {
     private void prepararPopUpEntrenamiento() {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         popup = Popup.generarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
+        textViewPopupPreparandoEspereHead = (TextView)popup.findViewById(R.id.textViewPopupPreparandoEspereHead);
+        textViewPopupPreparandoEspereBody = (TextView)popup.findViewById(R.id.textViewPopupPreparandoEspereBody);
         popup.show();
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
         mediaPlayer.start();
+
+        entrenamientoOperaciones();
+
     }
 
     private void calibracionGPSFinalizada() {
         LottieAnimationView animationPrepararEntrenamiento = popup.findViewById(R.id.animationPrepararEntrenamiento);
-
-        animationPrepararEntrenamiento.setAnimation("CheckMarkSuccessData.json");
-        Animation animation = new Animation() {
+        animationPrepararEntrenamiento.setVisibility(LottieAnimationView.INVISIBLE);
+        popup.findViewById(R.id.animationPrepararEntrenamientoCompletado).setVisibility(LottieAnimationView.VISIBLE);
+        LottieAnimationView animationPrepararEntrenamientoCompletado = popup.findViewById(R.id.animationPrepararEntrenamientoCompletado);
+        animationPrepararEntrenamientoCompletado.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void setRepeatCount(int repeatCount) {
-                super.setRepeatCount(3);
-                super.setBackgroundColor(Color.BLUE);
+            public void onClick(View v) {
+                empezarEntrenamiento();
+                popup.cancel();
             }
-        };
-        animationPrepararEntrenamiento.playAnimation();
-        animationPrepararEntrenamiento.startAnimation(animation);
+        });
 
+        textViewPopupPreparandoEspereHead.setText(R.string.okgps_string);
+        textViewPopupPreparandoEspereBody.setText(R.string.okgpsbody_string);
     }
 
     private void empezarEntrenamiento(){

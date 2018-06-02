@@ -11,4 +11,5 @@
     <string name="title_activity_informacion_entrenamiento">Trinning Information</string>
     <string name="title_activity_maps">Map</string>
     <string name="carreras_string">Racing Calendar</string>
+    <string name="okgps_string">Press Start</string>
 </resources>

@@ -35,6 +35,30 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationPrepararEntrenamientoCompletado"
+            android:layout_width="283dp"
+            android:layout_height="203dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textViewPopupPreparandoEspereBody"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/textViewPopupPreparandoEspereHead"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="success.json"
+            app:lottie_imageAssetsFolder="assets"
+            app:lottie_loop="true" />
+
         <TextView
             android:id="@+id/textViewPopupPreparandoEspereBody"
             android:layout_width="wrap_content"

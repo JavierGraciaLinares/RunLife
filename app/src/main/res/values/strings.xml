@@ -21,4 +21,6 @@
     <string name="esperaHead_text">Espere...</string>
     <string name="esperaBody_text">Por favor no se mueva, espere a que se calibre el GPS. A continuación comenzará su entrenamiento.</string>
     <string name="carreras_string">Calendario Carreras</string>
+    <string name="okgps_string">Pulse Empezar</string>
+    <string name="okgpsbody_string">GPS Calibrado correctamente. Pulse el botón para comenzar el entrenamiento.</string>
 </resources>

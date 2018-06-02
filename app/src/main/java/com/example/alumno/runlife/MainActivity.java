@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+     /*   OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if(opr.isDone()){
             GoogleSignInResult result = opr.get();
             resultadoLogin(result);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                     resultadoLogin(googleSignInResult);
                 }
             });
-        }
+        }*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

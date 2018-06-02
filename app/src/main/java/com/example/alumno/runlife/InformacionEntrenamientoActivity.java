@@ -39,7 +39,6 @@ import java.util.Date;
 public class InformacionEntrenamientoActivity extends AppCompatActivity implements OnMapReadyCallback {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
-    //private LinearLayout popupInformacionEntrenamiento;
     public Entrenamiento entrenamientoVisualizado;
     TextView textViewPopupHistorialDistancia;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -99,13 +98,13 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popup.show();
             }
         });
+
     }
 
     @Override

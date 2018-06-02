@@ -22,7 +22,7 @@ public class Popup {
         dialog.setContentView(layout);
         if(popupModal) {
             dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
         }
         return dialog;
     }
