@@ -7,15 +7,14 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,7 +22,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
@@ -37,16 +35,20 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Locale;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class FragmentEntrenamientoLibre extends Fragment {
+public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech.OnInitListener {
 
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
     public static final int RESPONSE = 1;
+    private boolean textToSpeechEnabled = false;
+    private TextToSpeech textToSpeech;
 
 
     Entrenamiento entrenamiento = new Entrenamiento();
@@ -171,7 +173,7 @@ public class FragmentEntrenamientoLibre extends Fragment {
         textViewVelocidadActual = (TextView) getView().findViewById(R.id.textViewVelocidadActual);
         cronometro = (Chronometer) getView().findViewById(R.id.chronometerEntrenamientoLibre);
         buttonEmpezarEntrenamiento = (FloatingActionButton) getView().findViewById(R.id.buttonEmpezarEntrenamiento);
-
+        textToSpeech = new TextToSpeech(getContext(), this);
     }
 
     private void configuracionSolicitudGPS() {
@@ -201,7 +203,6 @@ public class FragmentEntrenamientoLibre extends Fragment {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         buttonEmpezarEntrenamiento.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorPrimary)));
         buttonEmpezarEntrenamiento.setImageResource(R.drawable.stop);
-        //textViewPopupPreparandoEspereHead
     }
 
     private void establecerBotonStart() {
@@ -215,12 +216,9 @@ public class FragmentEntrenamientoLibre extends Fragment {
     private void prepararPopUpEntrenamiento() {
         Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
         popup = Popup.generarPopUp(getActivity(), R.layout.popup_preparando_entrenamiento, Popup.POPUP_MODAL);
-        textViewPopupPreparandoEspereHead = (TextView)popup.findViewById(R.id.textViewPopupPreparandoEspereHead);
-        textViewPopupPreparandoEspereBody = (TextView)popup.findViewById(R.id.textViewPopupPreparandoEspereBody);
+        textViewPopupPreparandoEspereHead = (TextView) popup.findViewById(R.id.textViewPopupPreparandoEspereHead);
+        textViewPopupPreparandoEspereBody = (TextView) popup.findViewById(R.id.textViewPopupPreparandoEspereBody);
         popup.show();
-        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
-        mediaPlayer.start();
-
         entrenamientoOperaciones();
 
     }
@@ -242,12 +240,51 @@ public class FragmentEntrenamientoLibre extends Fragment {
         textViewPopupPreparandoEspereBody.setText(R.string.okgpsbody_string);
     }
 
-    private void empezarEntrenamiento(){
+    private void empezarEntrenamiento() {
         entrenamiento.setEnMarcha(true);
         cronometro.setBase(entrenamiento.getTiempoPausa() + SystemClock.elapsedRealtime());
         cronometro.start();
         entrenamiento.setTiempoPausa(0);
+        sonidoComienzo();
+        decirConVoz(getResources().getString(R.string.comienzoEntrenamiento_voice));
+    }
+
+    private void sonidoComienzo() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
+        mediaPlayer.start();
     }
 
 
+    @Override
+    public void onInit(int status) {
+
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = textToSpeech.setLanguage(Locale.getDefault());
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e(TAGDEBUG, "Lenguaje no soportado");
+                textToSpeechEnabled = false;
+            } else {
+                textToSpeechEnabled = true;
+            }
+
+        } else {
+            Log.e(TAGDEBUG, "Error Text To Speach");
+        }
+    }
+
+    private void decirConVoz(String texto) {
+        textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+        super.onDestroy();
+    }
 }

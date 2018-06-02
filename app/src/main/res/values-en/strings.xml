@@ -12,4 +12,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="carreras_string">Racing Calendar</string>
     <string name="okgps_string">Press Start</string>
+    <string name="comienzoEntrenamiento_voice">Start the training</string>
 </resources>
