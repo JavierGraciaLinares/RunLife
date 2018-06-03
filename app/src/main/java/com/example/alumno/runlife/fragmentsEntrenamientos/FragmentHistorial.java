@@ -35,10 +35,10 @@ public class FragmentHistorial extends Fragment {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-    ArrayList<Entrenamiento> arrayListHistorialEntrenamientos = new ArrayList<>();
+    ArrayList<EntrenamientoDatos> arrayListHistorialEntrenamientoDatoses = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference entrenamientosRef = db.collection("entrenamiento");
+    CollectionReference entrenamientosRef = db.collection("entrenamientoDatos");
 
     ListView listViewlistaHistorial;
     ArrayAdapterHistorial arrayAdapterHistorial;
@@ -55,18 +55,18 @@ public class FragmentHistorial extends Fragment {
         this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
 
 
-        arrayAdapterHistorial = new ArrayAdapterHistorial(rootView.getContext(), R.layout.row_historial_entrenamientos, arrayListHistorialEntrenamientos);
+        arrayAdapterHistorial = new ArrayAdapterHistorial(rootView.getContext(), R.layout.row_historial_entrenamientos, arrayListHistorialEntrenamientoDatoses);
         listViewlistaHistorial.setAdapter(arrayAdapterHistorial);
 
         listViewlistaHistorial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent anIntent = new Intent(rootView.getContext(), InformacionEntrenamientoActivity.class);
-                anIntent.putExtra(Entrenamiento.IDENTRENAMIENTO,arrayListHistorialEntrenamientos.get(i).getIdEntrenamiento());
+                anIntent.putExtra(EntrenamientoDatos.IDENTRENAMIENTO, arrayListHistorialEntrenamientoDatoses.get(i).getIdEntrenamiento());
                 startActivity(anIntent);
             }
         });
-        db.collection("Entrenamiento")
+        db.collection("EntrenamientoDatos")
                 .whereEqualTo("Usuario", MainActivity.cuentaGoogleUsuario.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -78,7 +78,7 @@ public class FragmentHistorial extends Fragment {
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = new ArrayList<GeoPoint>();
                                 //puntoDeRutaArrayList.addAll(((HashMap<String, GeoPoint>) entrenamientoQuery.get("Recorrido")).values());
                                 //puntoDeRutaArrayList = (ArrayList<PuntoDeRuta>) entrenamientoQuery.get("Recorrido");
-                                arrayListHistorialEntrenamientos.add(new Entrenamiento(new Timestamp(((Date)entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA),entrenamientoQuery.getId()));
+                                arrayListHistorialEntrenamientoDatoses.add(new EntrenamientoDatos(new Timestamp(((Date)entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA),entrenamientoQuery.getId()));
                                 arrayAdapterHistorial.notifyDataSetChanged();
                             }
                         } else {

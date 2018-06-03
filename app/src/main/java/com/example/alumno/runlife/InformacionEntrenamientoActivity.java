@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.alumno.runlife.fragmentsEntrenamientos.Entrenamiento;
+import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
 import com.example.alumno.runlife.herramientas.Popup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,7 +39,7 @@ import java.util.Date;
 public class InformacionEntrenamientoActivity extends AppCompatActivity implements OnMapReadyCallback {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
-    public Entrenamiento entrenamientoVisualizado;
+    public EntrenamientoDatos entrenamientoDatosVisualizado;
     private TextView textViewPopupHistorialDistancia;
     private TextView textViewPopupHistorialTiempo;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -59,10 +59,10 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
         mapFragment.getMapAsync(this);
 
         Intent anIntent = getIntent();
-        String idEntrenamiento = anIntent.getStringExtra(Entrenamiento.IDENTRENAMIENTO);
+        String idEntrenamiento = anIntent.getStringExtra(EntrenamientoDatos.IDENTRENAMIENTO);
         creacionPopup();
 
-        db.collection("Entrenamiento")
+        db.collection("EntrenamientoDatos")
                 .whereEqualTo(FieldPath.documentId(), idEntrenamiento)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -72,27 +72,29 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                             for (DocumentSnapshot entrenamientoQuery : task.getResult()) {
                                 //Añadir puntos de ruta
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = (ArrayList<GeoPoint>) entrenamientoQuery.get("Recorrido");
-                                entrenamientoVisualizado = new Entrenamiento(new Timestamp(((Date) entrenamientoQuery.get(Entrenamiento.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO), (long) entrenamientoQuery.get(Entrenamiento.VELOCIDADMEDIA), entrenamientoQuery.getId());
-                                textViewPopupHistorialDistancia.setText(String.format("%.2f", ((double) entrenamientoQuery.get(Entrenamiento.DISTANCIARECORRIDA) / 1000)) + " Km");
+                                entrenamientoDatosVisualizado = new EntrenamientoDatos(new Timestamp(((Date) entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO), (long) entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA), entrenamientoQuery.getId());
+                                textViewPopupHistorialDistancia.setText(String.format("%.2f", ((double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA) / 1000)) + " Km");
 
-                                long tiempoEntrenamiento = (long)entrenamientoQuery.get(Entrenamiento.TIEMPOENTRENAMIENTO);
+                                long tiempoEntrenamiento = (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO);
                                 int hours = (int) (tiempoEntrenamiento / 3600000);
                                 int minutes = (int) (tiempoEntrenamiento - hours * 3600000) / 60000;
                                 int seconds = (int) (tiempoEntrenamiento - hours * 3600000 - minutes * 60000) / 1000;
                                 textViewPopupHistorialTiempo.setText(String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
                             }
                             //Dibujar Ruta en el Mapa
-                            GeoPoint anteriorPuntoDeRuta = entrenamientoVisualizado.getRecorrido().get(0);
-                            LatLng posicionInicio = new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(posicionInicio).title("Inicio"));
-                            CameraUpdate posicionCamara = CameraUpdateFactory.newLatLngZoom(new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude()), 14);
-                            mMap.animateCamera(posicionCamara);
-                            for (GeoPoint puntoDeRuta : entrenamientoVisualizado.getRecorrido()) {
-                                Polyline line = mMap.addPolyline(new PolylineOptions()
-                                        .add(new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude()), new LatLng(puntoDeRuta.getLatitude(), puntoDeRuta.getLongitude()))
-                                        .width(5)
-                                        .color(Color.RED));
-                                anteriorPuntoDeRuta = puntoDeRuta;
+                            if (entrenamientoDatosVisualizado.getRecorrido().size() > 0) {
+                                GeoPoint anteriorPuntoDeRuta = entrenamientoDatosVisualizado.getRecorrido().get(0);
+                                LatLng posicionInicio = new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(posicionInicio).title("Inicio"));
+                                CameraUpdate posicionCamara = CameraUpdateFactory.newLatLngZoom(new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude()), 14);
+                                mMap.animateCamera(posicionCamara);
+                                for (GeoPoint puntoDeRuta : entrenamientoDatosVisualizado.getRecorrido()) {
+                                    Polyline line = mMap.addPolyline(new PolylineOptions()
+                                            .add(new LatLng(anteriorPuntoDeRuta.getLatitude(), anteriorPuntoDeRuta.getLongitude()), new LatLng(puntoDeRuta.getLatitude(), puntoDeRuta.getLongitude()))
+                                            .width(5)
+                                            .color(Color.RED));
+                                    anteriorPuntoDeRuta = puntoDeRuta;
+                                }
                             }
 
                         } else {

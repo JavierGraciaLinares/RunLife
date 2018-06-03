@@ -1,10 +1,8 @@
 package com.example.alumno.runlife;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,9 +20,11 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoLibre;
+import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamiento;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentHistorial;
+import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentPortada;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         //Crear primer fragmento y añadirlo
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayoutMain, new FragmentEntrenamientoLibre());
+        fragmentTransaction.add(R.id.frameLayoutMain, new FragmentPortada());
         fragmentTransaction.commit();
 
         // LOGIN GOOGLE
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        /*<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             resultadoLogin(result);
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
                     resultadoLogin(googleSignInResult);
                 }
             });
-        }
+        }*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -194,19 +194,26 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.menu_entrenamientoLibre) {
+        if (id == R.id.menu_portada) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentEntrenamientoLibre());
+            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentPortada());
+            fragmentTransaction.commit();
+        } else if (id == R.id.menu_entrenamientoLibre) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
+            fragmentEntrenamiento.setArguments(bundle);
+            fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
             fragmentTransaction.commit();
         } else if (id == R.id.menu_entrenamientoDistancia) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA);
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentEntrenamientoLibre());
+            FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
+            fragmentEntrenamiento.setArguments(bundle);
+            fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.menu_historial) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
@@ -215,8 +222,8 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentCarreras());
             fragmentTransaction.commit();
-        }else if (id == R.id.menu_ayuda) {
-            Intent intent = new Intent(this,TutorialActivity.class);
+        } else if (id == R.id.menu_ayuda) {
+            Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
         }
 

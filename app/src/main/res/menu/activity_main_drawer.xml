@@ -4,6 +4,14 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/menu_portada"
+            android:icon="@drawable/home"
+            android:title="@string/inicio_String" />
+    </group>
+
+    <item android:title="@string/entrenamiento_String">
+        <menu>
+        <item
             android:id="@+id/menu_entrenamientoLibre"
             android:icon="@drawable/runicon"
             android:title="@string/libreString" />
@@ -11,16 +19,8 @@
             android:id="@+id/menu_entrenamientoDistancia"
             android:icon="@drawable/ruler"
             android:title="@string/distanciaString" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
+        </menu>
+    </item>
     <item android:title="@string/datosString">
         <menu>
             <item

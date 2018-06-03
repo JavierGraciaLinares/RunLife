@@ -61,7 +61,7 @@ public class MapsActivity extends FrameLayout implements OnMapReadyCallback {
 
 
         Log.i(TAGDEBUG,"DESDE MAPASAAAAAAAAA");*/
-        //Log.i(TAGDEBUG,"DESDE MAPAS: " + InformacionEntrenamientoActivity.entrenamientoVisualizado.getIdEntrenamiento());
+        //Log.i(TAGDEBUG,"DESDE MAPAS: " + InformacionEntrenamientoActivity.entrenamientoDatosVisualizado.getIdEntrenamiento());
 /*
         Polyline line = googleMap.addPolyline(new PolylineOptions()
                 .add(new LatLng(41.6563497, -0.9147491000000001), new LatLng(41.644172 , -0.914604))

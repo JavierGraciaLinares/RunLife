@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.fragmentsEntrenamientos.Entrenamiento;
+import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,11 +22,11 @@ import java.util.ArrayList;
  * Created by javi on 17/05/2018.
  */
 
-public class ArrayAdapterHistorial extends ArrayAdapter<Entrenamiento> {
+public class ArrayAdapterHistorial extends ArrayAdapter<EntrenamientoDatos> {
 
     public Context aContext;
     public int aResource;
-    public ArrayList<Entrenamiento> listaEntrenamientos;
+    public ArrayList<EntrenamientoDatos> listaEntrenamientoDatoses;
 
     //Elementos de la fila
     public TextView textViewHistorialFecha;
@@ -37,11 +37,11 @@ public class ArrayAdapterHistorial extends ArrayAdapter<Entrenamiento> {
     public ImageView imageViewHistorialDuracionEntrenamiento;
     public ImageView imageViewHistorialVelocidadMedia;
 
-    public ArrayAdapterHistorial(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Entrenamiento> listaEntrenamientos) {
-        super(context, resource, listaEntrenamientos);
+    public ArrayAdapterHistorial(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<EntrenamientoDatos> listaEntrenamientoDatoses) {
+        super(context, resource, listaEntrenamientoDatoses);
         aContext = context;
         aResource = resource;
-        this.listaEntrenamientos = listaEntrenamientos;
+        this.listaEntrenamientoDatoses = listaEntrenamientoDatoses;
     }
 
     @NonNull
@@ -64,14 +64,14 @@ public class ArrayAdapterHistorial extends ArrayAdapter<Entrenamiento> {
         textViewHistorialDistancia = (TextView) returnView.findViewById(R.id.textViewHistorialDistancia);
 
         //Damos valor a los elementos de la fila
-        textViewHistorialFecha.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(listaEntrenamientos.get(position).getHoraDelEntrenamiento()));
-        long tiempoEntrenamiento = listaEntrenamientos.get(position).getTiempoEntrenamiento();
+        textViewHistorialFecha.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(listaEntrenamientoDatoses.get(position).getHoraDelEntrenamiento()));
+        long tiempoEntrenamiento = listaEntrenamientoDatoses.get(position).getTiempoEntrenamiento();
         int hours = (int) (tiempoEntrenamiento / 3600000);
         int minutes = (int) (tiempoEntrenamiento - hours * 3600000) / 60000;
         int seconds = (int) (tiempoEntrenamiento - hours * 3600000 - minutes * 60000) / 1000;
         textViewHistorialDuracionEntrenamiento.setText(String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
-        textViewHistorialVelocidadMedia.setText(listaEntrenamientos.get(position).getVelocidadMedia()+"min/km");
-        textViewHistorialDistancia.setText(listaEntrenamientos.get(position).getDistanciarecorridaEnKMString());
+        textViewHistorialVelocidadMedia.setText(listaEntrenamientoDatoses.get(position).getVelocidadMedia()+"min/km");
+        textViewHistorialDistancia.setText(listaEntrenamientoDatoses.get(position).getDistanciarecorridaEnKMString());
         return returnView;
     }
 }

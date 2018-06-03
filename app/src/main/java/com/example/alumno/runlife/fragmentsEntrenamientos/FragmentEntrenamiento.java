@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -22,8 +23,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.alumno.runlife.Animaciones;
@@ -43,23 +46,29 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech.OnInitListener {
+public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnInitListener {
 
     public static final int RESPONSE = 1;
     private boolean textToSpeechEnabled = false;
     private TextToSpeech textToSpeech;
 
 
-    Entrenamiento entrenamiento = new Entrenamiento();
+    EntrenamientoDatos entrenamientoDatos;
 
     Chronometer cronometro;
     TextView textViewDistanciaRecorrida;
     TextView textViewVelocidadMedia;
-    TextView textViewVelocidadActual;
+    public TextView textViewObjetivoEntrenamiento;
+
     TextView textViewPopupPreparandoEspereHead;
     TextView textViewPopupPreparandoEspereBody;
     FloatingActionButton buttonEmpezarEntrenamiento;
     private Dialog popup;
+
+    //Campos PopUpConfiguracionDistancia
+    private Dialog popupConfiguracion;
+    private TextView textViewDistanciaEntrenamiento;
+    private Button buttonOkDistancia;
 
     private FusedLocationProviderClient aClient;
     private LocationRequest aRequest;
@@ -67,14 +76,20 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public FragmentEntrenamientoLibre() {
+    public FragmentEntrenamiento() {
         //textViewDistanciaRecorrida = (TextView) getView().findViewById(R.id.textViewDistanciaRecorrida);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        entrenamientoDatos = new EntrenamientoDatos();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_entrenamiento_libre, container, false);
+        return inflater.inflate(R.layout.fragment_fragment_entrenamiento, container, false);
     }
 
     @Override
@@ -83,7 +98,9 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         iniciarElementosDeLaVentana();
         configuracionSolicitudGPS();
         establecreAccionesBotones();
+        establecerTipoEntrenamiento();
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void entrenamientoOperaciones() {
@@ -98,51 +115,53 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
                     Location localizacionActual = locationResult.getLastLocation();
                     double distanciaEntreDosPuntos;
 
-                    if (entrenamiento.numeroLocalizacion == 0) {
-                        entrenamiento.setLocalizacionAnterior(localizacionActual);
+                    if (entrenamientoDatos.numeroLocalizacion == 0) {
+                        entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                     }
-                    distanciaEntreDosPuntos = entrenamiento.getLocalizacionAnterior().distanceTo(localizacionActual);
-                    entrenamiento.setLocalizacionAnterior(localizacionActual);
+                    distanciaEntreDosPuntos = entrenamientoDatos.getLocalizacionAnterior().distanceTo(localizacionActual);
+                    entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                     Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
 
-                    if (entrenamiento.numeroLocalizacion < 5 || (distanciaEntreDosPuntos > 10 && !entrenamiento.isEnMarcha())) {
-                        entrenamiento.numeroLocalizacion++;
-                    } else if (!entrenamiento.isEnMarcha()) {
+                    if (entrenamientoDatos.numeroLocalizacion < 5 || (distanciaEntreDosPuntos > 10 && !entrenamientoDatos.isEnMarcha())) {
+                        entrenamientoDatos.numeroLocalizacion++;
+                    } else if (!entrenamientoDatos.isEnMarcha()) {
                         calibracionGPSFinalizada();
+                    } else if (entrenamientoDatos.getTipoEntrenamiento() == EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA && entrenamientoDatos.getDistanciaRecorrida() >= entrenamientoDatos.getDistanciaObjetivo()) {
+
+                        finalizarEntrenamiento();
                     } else {
                         Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
                         if (distanciaEntreDosPuntos > 10 && distanciaEntreDosPuntos < 50) {
                             // Distancia Recorrida
-                            entrenamiento.setDistanciaRecorrida(entrenamiento.distanciaRecorrida += distanciaEntreDosPuntos);
-                            textViewDistanciaRecorrida.setText(entrenamiento.getDistanciarecorridaEnKMString());
+                            entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
+                            textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
 
                             //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
                             //Insertar PUNTO DE RUTA
-                            entrenamiento.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                            entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
                             //Calcular y Mostrar VELOCIDAD MEDIA
-                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamiento.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
-                            textViewVelocidadActual.setText(String.format("%.2f", entrenamiento.calcularKmXHActuales(cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h");
+                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
 
                         }
 
-                        Log.i(MainActivity.TAGDEVELOP, "Tiempo Anterior: " + entrenamiento.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
+                        Log.i(MainActivity.TAGDEVELOP, "Tiempo Anterior: " + entrenamientoDatos.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
 
-                    entrenamiento.setTiempoAnterior(SystemClock.elapsedRealtime());
-                    //Log.i(TAGDEBUG, "Posicion " + localizacionActual.getLatitude() + " " + localizacionActual.getLongitude() + "   Distancia: " + entrenamiento.getDistanciaRecorrida() + " metros");
-                    Log.i(MainActivity.TAGDEVELOP, "                                              - Distancia: " + entrenamiento.getDistanciaRecorrida() + " metros");
+                    entrenamientoDatos.setTiempoAnterior(SystemClock.elapsedRealtime());
+                    //Log.i(TAGDEBUG, "Posicion " + localizacionActual.getLatitude() + " " + localizacionActual.getLongitude() + "   Distancia: " + entrenamientoDatos.getDistanciaRecorrida() + " metros");
+                    Log.i(MainActivity.TAGDEVELOP, "                                              - Distancia: " + entrenamientoDatos.getDistanciaRecorrida() + " metros");
                 }
             };
             aClient.requestLocationUpdates(aRequest, aCallback, null);
         }
     }
 
-    private void pausarEntrenamiento() {
-        entrenamiento.setTiempoPausa(cronometro.getBase() - SystemClock.elapsedRealtime());
+    /*private void pausarEntrenamiento() {
+        entrenamientoDatos.setTiempoPausa(cronometro.getBase() - SystemClock.elapsedRealtime());
         cronometro.stop();
-        entrenamiento.setEnMarcha(false);
+        entrenamientoDatos.setEnMarcha(false);
         aClient.removeLocationUpdates(aCallback);
-    }
+    }*/
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -169,7 +188,7 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
     private void iniciarElementosDeLaVentana() {
         textViewDistanciaRecorrida = (TextView) getView().findViewById(R.id.textViewDistanciaRecorrida);
         textViewVelocidadMedia = (TextView) getView().findViewById(R.id.textViewVelocidadMedia);
-        textViewVelocidadActual = (TextView) getView().findViewById(R.id.textViewVelocidadActual);
+        textViewObjetivoEntrenamiento = (TextView) getView().findViewById(R.id.textViewObjetivoEntrenamiento);
         cronometro = (Chronometer) getView().findViewById(R.id.chronometerEntrenamientoLibre);
         buttonEmpezarEntrenamiento = (FloatingActionButton) getView().findViewById(R.id.buttonEmpezarEntrenamiento);
         textToSpeech = new TextToSpeech(getContext(), this);
@@ -187,10 +206,8 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         buttonEmpezarEntrenamiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (entrenamiento.isEnMarcha()) {
-                    establecerBotonStart();
-                    entrenamiento.insertarEntrenamientoEnFirebase();
-                    pausarEntrenamiento();
+                if (entrenamientoDatos.isEnMarcha()) {
+                    finalizarEntrenamiento();
                 } else {
                     prepararPopUpEntrenamiento();
                 }
@@ -204,12 +221,36 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         buttonEmpezarEntrenamiento.setImageResource(R.drawable.stop);
     }
 
-    private void establecerBotonStart() {
-        Animaciones.vueltaCompletaFloatinButton(getContext(), buttonEmpezarEntrenamiento);
-        buttonEmpezarEntrenamiento.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorStart)));
-        buttonEmpezarEntrenamiento.setImageResource(R.drawable.play);
+    private void establecerTipoEntrenamiento() {
+        if (getArguments() != null) {
+            entrenamientoDatos.setTipoEntrenamiento(getArguments().getInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO));
+            switch (entrenamientoDatos.getTipoEntrenamiento()) {
+                case EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE:
+                    Toast.makeText(getContext(), getResources().getText(R.string.entrenamiento_String) + ": " + getResources().getText(R.string.libreString), Toast.LENGTH_SHORT).show();
+                    textViewObjetivoEntrenamiento.setText(getResources().getText(R.string.libreString).toString());
+                    break;
+                case EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA:
+                    Toast.makeText(getContext(), getResources().getText(R.string.entrenamiento_String) + ": " + getResources().getText(R.string.distanciaString), Toast.LENGTH_SHORT).show();
+                    popupConfiguracion = Popup.generarPopUp(getActivity(), R.layout.popup_distancia_entrenamiento, Popup.POPUP_MODAL);
+                    buttonOkDistancia = (Button) popupConfiguracion.findViewById(R.id.buttonOkDistancia);
+                    textViewDistanciaEntrenamiento = (TextView) popupConfiguracion.findViewById(R.id.textViewDistanciaEntrenamiento);
+                    buttonOkDistancia.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!textViewDistanciaEntrenamiento.getText().toString().isEmpty() && Integer.parseInt(textViewDistanciaEntrenamiento.getText().toString()) > 0) {
+                                entrenamientoDatos.setDistanciaObjetivo(Integer.parseInt(textViewDistanciaEntrenamiento.getText().toString()));
+                                popupConfiguracion.cancel();
+                                textViewObjetivoEntrenamiento.setText(entrenamientoDatos.getDistanciaObjetivo() + " m");
+                            }
+                        }
+                    });
+                    popupConfiguracion.show();
 
-
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void prepararPopUpEntrenamiento() {
@@ -240,12 +281,13 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
     }
 
     private void empezarEntrenamiento() {
-        entrenamiento.setEnMarcha(true);
-        cronometro.setBase(entrenamiento.getTiempoPausa() + SystemClock.elapsedRealtime());
+        entrenamientoDatos.setEnMarcha(true);
+        cronometro.setBase(entrenamientoDatos.getTiempoPausa() + SystemClock.elapsedRealtime());
         cronometro.start();
-        entrenamiento.setTiempoPausa(0);
+        entrenamientoDatos.setTiempoPausa(0);
         sonidoComienzo();
         decirConVoz(getResources().getString(R.string.comienzoEntrenamiento_voice));
+        establecerBotonStop();
     }
 
     private void sonidoComienzo() {
@@ -253,6 +295,16 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         mediaPlayer.start();
     }
 
+    private void decirConVoz(String texto) {
+        if (textToSpeechEnabled) {
+            textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+    private void finalizarEntrenamiento() {
+        entrenamientoDatos.insertarEntrenamientoEnFirebase();
+        //FINALIZAR
+    }
 
     @Override
     public void onInit(int status) {
@@ -273,11 +325,6 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         }
     }
 
-    private void decirConVoz(String texto) {
-        if (textToSpeechEnabled) {
-            textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -288,4 +335,6 @@ public class FragmentEntrenamientoLibre extends Fragment implements TextToSpeech
         super.onDestroy();
         super.onDestroy();
     }
+
+
 }

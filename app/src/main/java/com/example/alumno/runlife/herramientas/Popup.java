@@ -1,13 +1,7 @@
 package com.example.alumno.runlife.herramientas;
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
-
-import com.example.alumno.runlife.InformacionEntrenamientoActivity;
-import com.example.alumno.runlife.MainActivity;
-import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamientoLibre;
 
 /**
  * Created by javi on 26/05/2018.

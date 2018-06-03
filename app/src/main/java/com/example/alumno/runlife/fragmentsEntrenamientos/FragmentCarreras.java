@@ -34,7 +34,7 @@ public class FragmentCarreras extends Fragment implements IJsonCarrera {
     private FragmentCarreras fragmentCarreras = this;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference entrenamientosRef = db.collection("entrenamiento");
+    CollectionReference entrenamientosRef = db.collection("entrenamientoDatos");
 
     ListView listViewlistaHistorial;
     ArrayAdapterCarreras arrayAdapterCarreras;

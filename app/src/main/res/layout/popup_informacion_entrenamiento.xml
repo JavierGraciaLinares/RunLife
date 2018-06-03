@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
-            android:text="@string/libreString"
+            android:text="TextView KM"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:text="A"
+            android:text="TextViewTime"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
     </LinearLayout>

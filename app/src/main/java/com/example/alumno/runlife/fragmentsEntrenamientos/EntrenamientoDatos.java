@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by javi on 17/05/2018.
  */
 
-public class Entrenamiento {
+public class EntrenamientoDatos {
 
     public static final String FECHAENTRENAMIENTO = "FechaEntrenamiento";
     public static final String DISTANCIARECORRIDA = "DistanciaRecorrida";
@@ -30,13 +30,15 @@ public class Entrenamiento {
     public static final String VELOCIDADMEDIA = "VelocidadMedia";
     public static final String IDENTRENAMIENTO = "IDEntrenamiento";
 
-    public static final int ENTRENAMIENTO_LIBRE = 1;
-    public static final int ENTRENAMIENTO_DISTANCIA = 2;
+    public static final String ENTRENAMIENTO_TIPO = "ENTRENAMIENTO_TIPO";
+    public static final int ENTRENAMIENTO_TIPO_LIBRE = 1;
+    public static final int ENTRENAMIENTO_TIPO_DISTANCIA = 2;
 
 
     String idEntrenamiento;
 
     Timestamp horaDelEntrenamiento;
+    private int tipoEntrenamiento;
     int numeroLocalizacion;
     boolean enMarcha;
     boolean calibrado;
@@ -46,12 +48,14 @@ public class Entrenamiento {
     long tiempoEntrenamiento;
     ArrayList<GeoPoint> recorrido;
 
+    private int distanciaObjetivo;
+
 
     Location localizacionAnterior;
     Long tiempoAnterior;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Entrenamiento() {
+    public EntrenamientoDatos() {
         this.numeroLocalizacion = 0;
         this.enMarcha = false;
         this.tiempoPausa = 0;
@@ -61,7 +65,7 @@ public class Entrenamiento {
         this.velocidadMedia = 0;
     }
 
-    public Entrenamiento(Timestamp horaDelEntrenamiento, double distanciaRecorrida, ArrayList<GeoPoint> recorrido, long tiempoEntrenamiento, long velocidadMedia, String idEntrenamiento) {
+    public EntrenamientoDatos(Timestamp horaDelEntrenamiento, double distanciaRecorrida, ArrayList<GeoPoint> recorrido, long tiempoEntrenamiento, long velocidadMedia, String idEntrenamiento) {
         this.horaDelEntrenamiento = horaDelEntrenamiento;
         this.distanciaRecorrida = distanciaRecorrida;
         this.recorrido = recorrido;
@@ -110,7 +114,7 @@ public class Entrenamiento {
             i++;
         }*/
         entidadEntrenamiento.put("Recorrido",recorrido);
-        db.collection("Entrenamiento")
+        db.collection("EntrenamientoDatos")
                 .add(entidadEntrenamiento)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -221,5 +225,21 @@ public class Entrenamiento {
 
     public void setCalibrado(boolean calibrado) {
         this.calibrado = calibrado;
+    }
+
+    public int getTipoEntrenamiento() {
+        return tipoEntrenamiento;
+    }
+
+    public void setTipoEntrenamiento(int tipoEntrenamiento) {
+        this.tipoEntrenamiento = tipoEntrenamiento;
+    }
+
+    public int getDistanciaObjetivo() {
+        return distanciaObjetivo;
+    }
+
+    public void setDistanciaObjetivo(int distanciaObjetivo) {
+        this.distanciaObjetivo = distanciaObjetivo;
     }
 }

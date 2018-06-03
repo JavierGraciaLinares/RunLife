@@ -15,4 +15,10 @@
     <string name="comienzoEntrenamiento_voice">Start the training</string>
     <string name="distanciaString">Distance</string>
     <string name="ayuda_string">Help</string>
+    <string name="entrenamiento_String">Trainning</string>
+    <string name="introducirDistancia_string">Training Distance</string>
+    <string name="aceptar_string">¡GO!</string>
+    <string name="distanciaMetros_string">Distance in meters</string>
+    <string name="inicio_String">Home</string>
+    <string name="acercaDe_string">Info</string>
 </resources>
