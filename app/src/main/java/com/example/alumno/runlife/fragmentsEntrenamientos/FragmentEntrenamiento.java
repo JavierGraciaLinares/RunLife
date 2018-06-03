@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.location.Location;
@@ -136,13 +137,13 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                             entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
 
-                            //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
-                            //Insertar PUNTO DE RUTA
-                            entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
-                            //Calcular y Mostrar VELOCIDAD MEDIA
-                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
 
                         }
+                        //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
+                        //Insertar PUNTO DE RUTA
+                        entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                        //Calcular y Mostrar VELOCIDAD MEDIA
+                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
 
                         Log.i(MainActivity.TAGDEVELOP, "Tiempo Anterior: " + entrenamientoDatos.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
@@ -303,7 +304,9 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
 
     private void finalizarEntrenamiento() {
         entrenamientoDatos.insertarEntrenamientoEnFirebase();
-        //FINALIZAR
+        FragmentTransaction fragmentTransaction = MainActivity.fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
+        fragmentTransaction.commit();
     }
 
     @Override

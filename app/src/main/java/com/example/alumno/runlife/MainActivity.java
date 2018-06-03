@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
@@ -33,6 +34,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textViewNombrePerfilUsuario;
     private TextView textViewEmailPerfilUsuario;
 
-    private FragmentManager fragmentManager;
+    public static FragmentManager fragmentManager;
     private GoogleApiClient googleApiClient;
 
 
@@ -183,8 +185,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_portada) {
-            Intent intent = new Intent(this, FragmentPortada.class);
-            startActivity(intent);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentPortada());
+            fragmentTransaction.commit();
         } else if (id == R.id.menu_entrenamientoLibre) {
             Bundle bundle = new Bundle();
             bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);
@@ -212,6 +215,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_ayuda) {
             Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
+        }else if (id == R.id.menu_salir) {
+            logout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -219,6 +224,19 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    private void logout(){
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if(status.isSuccess()){
+                    volverPantallaLogin();
+                }else{
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

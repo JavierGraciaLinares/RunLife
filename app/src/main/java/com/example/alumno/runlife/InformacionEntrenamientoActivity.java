@@ -37,14 +37,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class InformacionEntrenamientoActivity extends AppCompatActivity implements OnMapReadyCallback {
-    public static final String TAGDEVELOP = "TAGDEVELOP";
-    public static final String TAGDEBUG = "TAGDEBUG";
-    public EntrenamientoDatos entrenamientoDatosVisualizado;
+
+    private EntrenamientoDatos entrenamientoDatosVisualizado;
     private TextView textViewPopupHistorialDistancia;
     private TextView textViewPopupHistorialTiempo;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleMap mMap;
-    Dialog popup;
+    private Dialog popupInformacionEntrenamiento;
 
 
     @Override
@@ -98,7 +97,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                             }
 
                         } else {
-                            Log.d(TAGDEVELOP, "Error getting documents: ", task.getException());
+                            Log.d(MainActivity.TAGDEVELOP, "Error getting documents: ", task.getException());
                         }
                     }
                 });
@@ -108,16 +107,16 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popup.show();
+                popupInformacionEntrenamiento.show();
             }
         });
 
     }
 
     private void creacionPopup() {
-        popup = Popup.generarPopUp(InformacionEntrenamientoActivity.this, R.layout.popup_informacion_entrenamiento, Popup.POPUP_NO_MODAL);
-        textViewPopupHistorialDistancia = (TextView) popup.findViewById(R.id.textViewPopupHistorialDistancia);
-        textViewPopupHistorialTiempo = (TextView) popup.findViewById(R.id.textViewPopupHistorialTiempo);
+        popupInformacionEntrenamiento = Popup.generarPopUp(InformacionEntrenamientoActivity.this, R.layout.popup_informacion_entrenamiento, Popup.POPUP_NO_MODAL);
+        textViewPopupHistorialDistancia = (TextView) popupInformacionEntrenamiento.findViewById(R.id.textViewPopupHistorialDistancia);
+        textViewPopupHistorialTiempo = (TextView) popupInformacionEntrenamiento.findViewById(R.id.textViewPopupHistorialTiempo);
     }
 
     @Override

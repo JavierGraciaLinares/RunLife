@@ -21,4 +21,6 @@
     <string name="distanciaMetros_string">Distance in meters</string>
     <string name="inicio_String">Home</string>
     <string name="acercaDe_string">Info</string>
+    <string name="objetivo_string">Objective:</string>
+    <string name="salir_string">Exit</string>
 </resources>

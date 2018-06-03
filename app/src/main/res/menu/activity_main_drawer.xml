@@ -39,6 +39,10 @@
                 android:id="@+id/menu_ayuda"
                 android:icon="@drawable/help"
                 android:title="@string/ayuda_string" />
+            <item
+                android:id="@+id/menu_salir"
+                android:icon="@drawable/exit"
+                android:title="@string/salir_string" />
         </menu>
     </item>
 

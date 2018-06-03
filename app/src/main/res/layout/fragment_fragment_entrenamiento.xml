@@ -132,7 +132,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="text Objetivo"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonEmpezarEntrenamiento"

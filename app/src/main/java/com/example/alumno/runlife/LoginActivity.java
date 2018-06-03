@@ -19,9 +19,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    LinearLayout linearLayoutLoginDown, linearLayoutLoginUp;
-    Animation upToDown, downToUp;
-    public static final int LOGINGOOGLE = 666;
+
+    private static final int LOGINGOOGLE = 666;
+
+    private LinearLayout linearLayoutLoginDown, linearLayoutLoginUp;
+    private Animation upToDown, downToUp;
 
     private GoogleApiClient googleApiClient;
 
