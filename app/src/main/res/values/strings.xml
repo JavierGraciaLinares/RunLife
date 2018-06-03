@@ -45,4 +45,6 @@
     <string name="tutorial3H_string">Progreso</string>
     <string name="tutorial3B_string">Accede a tu historial de entrenamientos para observar entrenamientos ya realizados. En ellos podrás observar las rutas que has seguido.</string>
     <string name="permisoOk_string">Permisos Otorgados. Vuelva a pulsar el entrenamiento.</string>
+    <string name="entrenamientoFinalizado_string">Entrenamiento Finalizado</string>
+    <string name="activeGPS_string">Active el GPS</string>
 </resources>

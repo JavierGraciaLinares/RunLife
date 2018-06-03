@@ -35,30 +35,29 @@ public class EntrenamientoDatos {
     public static final int ENTRENAMIENTO_TIPO_DISTANCIA = 2;
 
 
-    String idEntrenamiento;
+    private String idEntrenamiento;
 
-    Timestamp horaDelEntrenamiento;
+    private Timestamp horaDelEntrenamiento;
+
     private int tipoEntrenamiento;
-    int numeroLocalizacion;
-    boolean enMarcha;
-    boolean calibrado;
-    long tiempoPausa;
-    long velocidadMedia;
-    double distanciaRecorrida;
-    long tiempoEntrenamiento;
-    ArrayList<GeoPoint> recorrido;
+
+    private long velocidadMedia;
+    public double distanciaRecorrida;
+    private long tiempoEntrenamiento;
+    private ArrayList<GeoPoint> recorrido;
 
     private int distanciaObjetivo;
+    private boolean enMarcha;
 
-
-    Location localizacionAnterior;
-    Long tiempoAnterior;
+    public int numeroLocalizacion;
+    private boolean calibrado;
+    private Location localizacionAnterior;
+    private Long tiempoAnterior;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public EntrenamientoDatos() {
         this.numeroLocalizacion = 0;
         this.enMarcha = false;
-        this.tiempoPausa = 0;
         this.distanciaRecorrida = 0;
         this.recorrido = new ArrayList<>();
         this.horaDelEntrenamiento = new Timestamp(System.currentTimeMillis());
@@ -74,10 +73,10 @@ public class EntrenamientoDatos {
         this.idEntrenamiento = idEntrenamiento;
     }
 
-    public double calcularKmXHMedia(long elapsedRealtime, long crono, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
+    public double calcularKmXHMedia(long elapsedRealtime, long crono) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
         tiempoEntrenamiento = elapsedRealtime - crono;
-        Log.i(MainActivity.TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaEntreDosPuntos + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
-        return ((distanciaEntreDosPuntos / (tiempoEntrenamiento / 1000))*3.6);//Metros/Segundo
+        Log.i(MainActivity.TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaRecorrida + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
+        return ((distanciaRecorrida / (tiempoEntrenamiento / 1000))*3.6);//Km/H
     }
 
     public double calcularKmXHActuales(long tiempoAnterior, double distanciaEntreDosPuntos) {  //¡¡¡¡¡¡¡¡¡¡¡REVISAAAAAAR!!!
@@ -91,10 +90,6 @@ public class EntrenamientoDatos {
         recorrido.add(new GeoPoint(localizacion.getLatitude(),localizacion.getLongitude()));
     }
 
-    public String getDistanciarecorridaEnKMString() {
-        return String.format("%.2f", (this.getDistanciaRecorrida() / 1000)) + " km";
-    }
-
     public void insertarEntrenamientoEnFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -104,15 +99,7 @@ public class EntrenamientoDatos {
         entidadEntrenamiento.put(DISTANCIARECORRIDA, distanciaRecorrida);
         entidadEntrenamiento.put(TIEMPOENTRENAMIENTO, tiempoEntrenamiento);
         entidadEntrenamiento.put(VELOCIDADMEDIA, velocidadMedia);
-        Map<String, Object> entidadListaRuta = new HashMap<>();
-        int i = 0;
-        /*for (PuntoDeRuta puntoDeRuta : recorrido) {
-            Map<String, Object> entidadPuntoRuta = new HashMap<>();
-            entidadPuntoRuta.put("Geopunto", puntoDeRuta.getGeopunto());
-            entidadPuntoRuta.put("Tiempo", puntoDeRuta.getTiempo());
-            entidadListaRuta.put(Integer.toString(i), entidadPuntoRuta);
-            i++;
-        }*/
+
         entidadEntrenamiento.put("Recorrido",recorrido);
         db.collection("EntrenamientoDatos")
                 .add(entidadEntrenamiento)
@@ -129,6 +116,11 @@ public class EntrenamientoDatos {
                     }
                 });
 
+    }
+
+
+    public String getDistanciarecorridaEnKMString() {
+        return String.format("%.2f", (this.getDistanciaRecorrida() / 1000)) + " km";
     }
 
     public Location getLocalizacionAnterior() {
@@ -161,14 +153,6 @@ public class EntrenamientoDatos {
 
     public void setEnMarcha(boolean enMarcha) {
         this.enMarcha = enMarcha;
-    }
-
-    public long getTiempoPausa() {
-        return tiempoPausa;
-    }
-
-    public void setTiempoPausa(long tiempoPausa) {
-        this.tiempoPausa = tiempoPausa;
     }
 
     public double getDistanciaRecorrida() {

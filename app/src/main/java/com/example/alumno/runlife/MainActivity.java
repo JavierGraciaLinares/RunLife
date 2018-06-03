@@ -28,6 +28,7 @@ import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamiento;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentHistorial;
 import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentPortada;
+import com.example.alumno.runlife.herramientas.Comprobadores;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentPortada());
             fragmentTransaction.commit();
         } else if (id == R.id.menu_entrenamientoLibre) {
-            if (tienePermisos()) {
+            if (tienePermisos() && Comprobadores.gpsActivado(this)) {
                 Bundle bundle = new Bundle();
                 bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -190,9 +191,11 @@ public class MainActivity extends AppCompatActivity
                 fragmentEntrenamiento.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
                 fragmentTransaction.commit();
+            }else{
+                Toast.makeText(this, getResources().getString(R.string.activeGPS_string), Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.menu_entrenamientoDistancia) {
-            if (tienePermisos()) {
+            if (tienePermisos() && Comprobadores.gpsActivado(this)) {
                 Bundle bundle = new Bundle();
                 bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -200,6 +203,8 @@ public class MainActivity extends AppCompatActivity
                 fragmentEntrenamiento.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
                 fragmentTransaction.commit();
+            }else{
+                Toast.makeText(this, getResources().getString(R.string.activeGPS_string), Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.menu_historial) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

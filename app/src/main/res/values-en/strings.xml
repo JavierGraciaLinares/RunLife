@@ -27,4 +27,5 @@
     <string name="tutorial1H_string">Improve!</string>
     <string name="tutorial2H_string">Races</string>
     <string name="tutorial3H_string">Progress</string>
+    <string name="activeGPS_string">Active the GPS</string>
 </resources>

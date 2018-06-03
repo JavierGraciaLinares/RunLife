@@ -53,8 +53,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
     private boolean textToSpeechEnabled = false;
     private TextToSpeech textToSpeech;
 
-
-    EntrenamientoDatos entrenamientoDatos;
+    private EntrenamientoDatos entrenamientoDatos;
 
     Chronometer cronometro;
     TextView textViewDistanciaRecorrida;
@@ -78,7 +77,6 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
     public FragmentEntrenamiento() {
-        //textViewDistanciaRecorrida = (TextView) getView().findViewById(R.id.textViewDistanciaRecorrida);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                     } else if (!entrenamientoDatos.isEnMarcha()) {
                         calibracionGPSFinalizada();
                     } else if (entrenamientoDatos.getTipoEntrenamiento() == EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA && entrenamientoDatos.getDistanciaRecorrida() >= entrenamientoDatos.getDistanciaObjetivo()) {
-
+                        decirConVoz(getResources().getString(R.string.entrenamientoFinalizado_string));
                         finalizarEntrenamiento();
                     } else {
                         Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
@@ -136,33 +134,20 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                             // Distancia Recorrida
                             entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
-
-
                         }
                         //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
                         //Insertar PUNTO DE RUTA
                         entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
                         //Calcular y Mostrar VELOCIDAD MEDIA
-                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase(), distanciaEntreDosPuntos)) + "Km/h"); //metros/segundo* tranformación para min/km
+                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
 
-                        Log.i(MainActivity.TAGDEVELOP, "Tiempo Anterior: " + entrenamientoDatos.getTiempoAnterior() + "   Tiempo Actual: " + SystemClock.elapsedRealtime());
                     }
-
                     entrenamientoDatos.setTiempoAnterior(SystemClock.elapsedRealtime());
-                    //Log.i(TAGDEBUG, "Posicion " + localizacionActual.getLatitude() + " " + localizacionActual.getLongitude() + "   Distancia: " + entrenamientoDatos.getDistanciaRecorrida() + " metros");
-                    Log.i(MainActivity.TAGDEVELOP, "                                              - Distancia: " + entrenamientoDatos.getDistanciaRecorrida() + " metros");
                 }
             };
             aClient.requestLocationUpdates(aRequest, aCallback, null);
         }
     }
-
-    /*private void pausarEntrenamiento() {
-        entrenamientoDatos.setTiempoPausa(cronometro.getBase() - SystemClock.elapsedRealtime());
-        cronometro.stop();
-        entrenamientoDatos.setEnMarcha(false);
-        aClient.removeLocationUpdates(aCallback);
-    }*/
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -180,8 +165,6 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
         super.onResume();
         if (ActivityCompat.checkSelfPermission(this.getContext(), "android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{"android.permission.ACCESS_FINE_LOCATION"}, RESPONSE);
-        } else {
-
         }
     }
 
@@ -283,13 +266,22 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
 
     private void empezarEntrenamiento() {
         entrenamientoDatos.setEnMarcha(true);
-        cronometro.setBase(entrenamientoDatos.getTiempoPausa() + SystemClock.elapsedRealtime());
+        cronometro.setBase(SystemClock.elapsedRealtime());
         cronometro.start();
-        entrenamientoDatos.setTiempoPausa(0);
         sonidoComienzo();
-        decirConVoz(getResources().getString(R.string.comienzoEntrenamiento_voice));
         establecerBotonStop();
     }
+
+    private void finalizarEntrenamiento() {
+        decirConVoz(getResources().getString(R.string.entrenamientoFinalizado_string));
+        entrenamientoDatos.insertarEntrenamientoEnFirebase();
+        FragmentTransaction fragmentTransaction = MainActivity.fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
+        fragmentTransaction.commit();
+    }
+
+
+    // Sonidos
 
     private void sonidoComienzo() {
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sonido_comienzo);
@@ -300,13 +292,6 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
         if (textToSpeechEnabled) {
             textToSpeech.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
         }
-    }
-
-    private void finalizarEntrenamiento() {
-        entrenamientoDatos.insertarEntrenamientoEnFirebase();
-        FragmentTransaction fragmentTransaction = MainActivity.fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -327,7 +312,6 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
             Log.e(MainActivity.TAGDEVELOP, "Error Text To Speach");
         }
     }
-
 
     @Override
     public void onDestroy() {
