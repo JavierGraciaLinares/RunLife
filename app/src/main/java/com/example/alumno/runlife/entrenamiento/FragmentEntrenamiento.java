@@ -56,14 +56,14 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
 
     private EntrenamientoDatos entrenamientoDatos;
 
-    Chronometer cronometro;
-    TextView textViewDistanciaRecorrida;
-    TextView textViewVelocidadMedia;
+    private Chronometer cronometro;
+    private TextView textViewDistanciaRecorrida;
+    private TextView textViewVelocidadMedia;
     public TextView textViewObjetivoEntrenamiento;
 
-    TextView textViewPopupPreparandoEspereHead;
-    TextView textViewPopupPreparandoEspereBody;
-    FloatingActionButton buttonEmpezarEntrenamiento;
+    private TextView textViewPopupPreparandoEspereHead;
+    private TextView textViewPopupPreparandoEspereBody;
+    private FloatingActionButton buttonEmpezarEntrenamiento;
     private Dialog popup;
 
     //Campos PopUpConfiguracionDistancia
@@ -136,7 +136,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                             entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
 
-                            //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
+                            //Fuera del if pruebas, dentro correcto
                             //Insertar PUNTO DE RUTA
                             entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
                             //Calcular y Mostrar VELOCIDAD MEDIA

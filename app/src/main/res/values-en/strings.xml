@@ -15,7 +15,7 @@
     <string name="comienzoEntrenamiento_voice">Start the training</string>
     <string name="distanciaString">Distance</string>
     <string name="ayuda_string">Help</string>
-    <string name="entrenamiento_String">Trainning</string>
+    <string name="entrenamiento_String">Training</string>
     <string name="introducirDistancia_string">Training Distance</string>
     <string name="aceptar_string">¡GO!</string>
     <string name="distanciaMetros_string">Distance in meters</string>
@@ -28,4 +28,12 @@
     <string name="tutorial2H_string">Races</string>
     <string name="tutorial3H_string">Progress</string>
     <string name="activeGPS_string">Active the GPS</string>
+    <string name="comprobarInternet_string">Check your network connection</string>
+    <string name="entrenamientoFinalizado_string">Finished Training</string>
+    <string name="esperaBody_text">Please don\'t move, wait for the GPS to be calibrated. Then start your training</string>
+    <string name="okgpsbody_string">GPS calibrated correctly. Press the button to start the training</string>
+    <string name="permisoOk_string">Accepted permissions. Please try again start training</string>
+    <string name="tutorial1B_string">Use our application to train and improve your capabilities as a runner. In a while you will see how your results improve considerably.</string>
+    <string name="tutorial2B_string">Find out about all the races that are held soon in your city. You can check the calendar from the menu bar and access its information</string>
+    <string name="tutorial3B_string">Access your training history to observe training already done. In them you will be able to observe the routes that you have followed</string>
 </resources>

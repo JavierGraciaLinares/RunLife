@@ -11,8 +11,8 @@ import java.sql.Timestamp;
  */
 
 public class PuntoDeRuta {
-    GeoPoint geopunto;
-    Timestamp tiempo;
+    private GeoPoint geopunto;
+    private Timestamp tiempo;
 
     public PuntoDeRuta(Location localizacion) {
         this.geopunto = new GeoPoint(localizacion.getLatitude(),localizacion.getLongitude());

@@ -23,14 +23,11 @@ public class FragmentCarreras extends Fragment implements IJsonCarrera {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-    ArrayList<Carrera> arrayListCarreras = new ArrayList<>();
+    private ArrayList<Carrera> arrayListCarreras = new ArrayList<>();
     private FragmentCarreras fragmentCarreras = this;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference entrenamientosRef = db.collection("entrenamientoDatos");
-
-    ListView listViewlistaHistorial;
-    ArrayAdapterCarreras arrayAdapterCarreras;
+    private ListView listViewlistaHistorial;
+    private ArrayAdapterCarreras arrayAdapterCarreras;
 
     public FragmentCarreras() {
 

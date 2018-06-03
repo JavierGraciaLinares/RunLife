@@ -6,14 +6,11 @@
     <string name="esperaHead_text">Espere...</string>
     <string name="historialString">Historial Entrenamientos</string>
     <string name="libreString">Libre</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="tiempoString">Tiempo</string>
     <string name="title_activity_borrar">Map</string>
     <string name="title_activity_delete">Map</string>
     <string name="title_activity_informacion_entrenamiento">Informacion Entrenamiento</string>
     <string name="title_activity_maps">Mapa</string>
-    <string name="title_activity_test">TestActivity</string>
     <string name="carreras_string">Calendario Carreras</string>
     <string name="okgps_string">Pulse Empezar</string>
     <string name="okgpsbody_string">GPS Calibrado correctamente. Pulse el botón para comenzar el entrenamiento.</string>
@@ -38,4 +35,5 @@
     <string name="permisoOk_string">Permisos Otorgados. Vuelva a pulsar el entrenamiento.</string>
     <string name="entrenamientoFinalizado_string">Entrenamiento Finalizado</string>
     <string name="activeGPS_string">Active el GPS</string>
+    <string name="comprobarInternet_string">Compruebe su conexión de internet</string>
 </resources>

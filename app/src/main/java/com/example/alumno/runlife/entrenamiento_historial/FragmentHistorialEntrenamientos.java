@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
 import com.example.alumno.runlife.entrenamiento.EntrenamientoDatos;
+import com.example.alumno.runlife.herramientas.Comprobadores;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,13 +36,12 @@ public class FragmentHistorialEntrenamientos extends Fragment {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-    ArrayList<EntrenamientoDatos> arrayListHistorialEntrenamientoDatoses = new ArrayList<>();
+    private ArrayList<EntrenamientoDatos> arrayListHistorialEntrenamientoDatoses = new ArrayList<>();
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference entrenamientosRef = db.collection("entrenamientoDatos");
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ListView listViewlistaHistorial;
-    ArrayAdapterHistorial arrayAdapterHistorial;
+    private ListView listViewlistaHistorial;
+    private ArrayAdapterHistorial arrayAdapterHistorial;
 
     public FragmentHistorialEntrenamientos() {
 
@@ -53,6 +54,9 @@ public class FragmentHistorialEntrenamientos extends Fragment {
 
         this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
 
+        if(!Comprobadores.internetActivado(rootView.getContext())){
+            Toast.makeText(rootView.getContext(), "", Toast.LENGTH_SHORT).show();
+        }
 
         arrayAdapterHistorial = new ArrayAdapterHistorial(rootView.getContext(), R.layout.row_historial_entrenamientos, arrayListHistorialEntrenamientoDatoses);
         listViewlistaHistorial.setAdapter(arrayAdapterHistorial);
