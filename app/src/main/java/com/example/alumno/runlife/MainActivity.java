@@ -1,13 +1,16 @@
 package com.example.alumno.runlife;
 
+import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,13 +44,13 @@ public class MainActivity extends AppCompatActivity
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-    public static final int RESPUESTAPERMISOS = 1;
+    public static final int RESPUESTAPERMISOS_ACCESS_COARSE_LOCATION = 1;
+    public static final int RESPUESTAPERMISOS_ACCESS_FINE_LOCATION = 2;
 
     //Cuenta Google del Usuario
     public static GoogleSignInAccount cuentaGoogleUsuario;
 
     //Datos menu
-    private ImageView imageViewPerfilUsuario;
     private TextView textViewNombrePerfilUsuario;
     private TextView textViewEmailPerfilUsuario;
 
@@ -89,7 +91,6 @@ public class MainActivity extends AppCompatActivity
                 .build();
 
         View cabeceraView = navigationView.getHeaderView(0);
-        imageViewPerfilUsuario = cabeceraView.findViewById(R.id.imageViewPerfilUsuario);
         textViewNombrePerfilUsuario = cabeceraView.findViewById(R.id.textViewNombrePerfilUsuario);
         textViewEmailPerfilUsuario = cabeceraView.findViewById(R.id.textViewEmailPerfilUsuario);
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-       /* OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             resultadoLogin(result);
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity
                     resultadoLogin(googleSignInResult);
                 }
             });
-        }*/
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -125,20 +126,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-   /* @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        URL url;
-        if ((requestCode == RESPUESTAPERMISOS) && (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET)) == PackageManager.PERMISSION_GRANTED) {
-            try {
-            url = new URL("https://lh5.googleusercontent.com/-8zHRzn1ab2Q/AAAAAAAAAAI/AAAAAAAAMcs/Hvw1DuEyoe4/photo.jpg");
-            ImageView imageViewTest = (ImageView) findViewById(R.id.imageView2);
-                imageViewTest.setImageBitmap(BitmapFactory.decodeStream(url.openConnection().getInputStream()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if ((requestCode == RESPUESTAPERMISOS_ACCESS_COARSE_LOCATION) && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, getResources().getString(R.string.permisoOk_string), Toast.LENGTH_SHORT).show();
+        } else if ((requestCode == RESPUESTAPERMISOS_ACCESS_FINE_LOCATION) && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, getResources().getString(R.string.permisoOk_string), Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
 
     private void volverPantallaLogin() {
@@ -186,21 +182,25 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentPortada());
             fragmentTransaction.commit();
         } else if (id == R.id.menu_entrenamientoLibre) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
-            fragmentEntrenamiento.setArguments(bundle);
-            fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
-            fragmentTransaction.commit();
+            if (tienePermisos()) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
+                fragmentEntrenamiento.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
+                fragmentTransaction.commit();
+            }
         } else if (id == R.id.menu_entrenamientoDistancia) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
-            fragmentEntrenamiento.setArguments(bundle);
-            fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
-            fragmentTransaction.commit();
+            if (tienePermisos()) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentEntrenamiento fragmentEntrenamiento = new FragmentEntrenamiento();
+                fragmentEntrenamiento.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
+                fragmentTransaction.commit();
+            }
         } else if (id == R.id.menu_historial) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
@@ -219,6 +219,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean tienePermisos() {
+        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RESPUESTAPERMISOS_ACCESS_FINE_LOCATION);
+        } else if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, RESPUESTAPERMISOS_ACCESS_COARSE_LOCATION);
+        } else {
+            return true;
+        }
+        return false;
     }
 
     private void logout() {

@@ -11,17 +11,17 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/slideWiewPagerTutorial"
         android:layout_width="wrap_content"
-        android:layout_height="450dp"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/dotsLayoutTutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/slideWiewPagerTutorial"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:textAlignment="center"></LinearLayout>
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"></LinearLayout>
 
 </RelativeLayout>
