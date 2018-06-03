@@ -19,10 +19,19 @@ public class SlideAdapterTutorial extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
+    String head1,head2,head3,body1,body2,body3;
 
     public SlideAdapterTutorial(Context context) {
+        head1 = context.getResources().getString(R.string.tutorial1H_string);
+        head2 = context.getResources().getString(R.string.tutorial2H_string);
+        head3 = context.getResources().getString(R.string.tutorial3H_string);
+        body1 = context.getResources().getString(R.string.tutorial1B_string);
+        body2 = context.getResources().getString(R.string.tutorial2B_string);
+        body3 = context.getResources().getString(R.string.tutorial3B_string);
         this.context = context;
+
     }
+
 
     public int[] slide_images = {
             R.drawable.runcartoon,
@@ -30,14 +39,14 @@ public class SlideAdapterTutorial extends PagerAdapter {
             R.drawable.runcartoon
     };
     public String[] slide_heads = {
-            "TEST 1",
-            "TEST 2",
-            "TEST 3"
+            head1,
+            head2,
+            head3
     };
     public String[] slide_description = {
-            "TEST TESTTESTTESTTESTTEST TEST TEST TEST TEST  TEST TEST TEST",
-            "TEST TESTTESTTESTTESTTEST TEST TEST TEST TEST  TEST TEST TEST",
-            "TEST TESTTESTTESTTESTTEST TEST TEST TEST TEST  TEST TEST TEST"
+            body1,
+            body2,
+            body3
     };
 
 
@@ -63,6 +72,7 @@ public class SlideAdapterTutorial extends PagerAdapter {
         imagenTutorial.setImageResource(slide_images[position]);
         textoCabeceraTutorial.setText(slide_heads[position]);
         textoDescripcionTutorial.setText(slide_description[position]);
+
         container.addView(view);
         return view;
     }
@@ -71,4 +81,6 @@ public class SlideAdapterTutorial extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((RelativeLayout) object);
     }
+
+
 }

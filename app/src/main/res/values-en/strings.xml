@@ -24,4 +24,7 @@
     <string name="objetivo_string">Objective:</string>
     <string name="salir_string">Exit</string>
     <string name="error_string">Error</string>
+    <string name="tutorial1H_string">Improve!</string>
+    <string name="tutorial2H_string">Races</string>
+    <string name="tutorial3H_string">Progress</string>
 </resources>

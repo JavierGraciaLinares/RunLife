@@ -38,4 +38,10 @@
     <string name="acercaDe_string">Acerca De</string>
     <string name="salir_string">Salir</string>
     <string name="error_string">Error</string>
+    <string name="tutorial1H_string">Mejora</string>
+    <string name="tutorial1B_string">Utiliza nuestra aplicacion para entrenar y mejora tus capacidades como corredor. En un tiempo verás como tus resultados mejoran considerablemente.</string>
+    <string name="tutorial2H_string">Carreras</string>
+    <string name="tutorial2B_string">Enterate de todas las carreras que se celebran próximamente en tu ciudad. Puedes consultar el calendario desde la barra de menu y acceder a su información.</string>
+    <string name="tutorial3H_string">Progreso</string>
+    <string name="tutorial3B_string">Accede a tu historial de entrenamientos para observar entrenamientos ya realizados. En ellos podrás observar las rutas que has seguido.</string>
 </resources>
