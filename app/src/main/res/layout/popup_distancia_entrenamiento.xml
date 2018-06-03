@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorStart"
             android:backgroundTint="@color/colorWhite"
-            android:text="Button"
+            android:text="@android:string/ok"
             android:textColor="@color/colorPrimaryDark"
             android:textColorLink="@color/colorPrimaryDark" />
 
