@@ -37,4 +37,5 @@
     <string name="inicio_String">Inicio</string>
     <string name="acercaDe_string">Acerca De</string>
     <string name="salir_string">Salir</string>
+    <string name="error_string">Error</string>
 </resources>

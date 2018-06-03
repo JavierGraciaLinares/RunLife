@@ -28,4 +28,5 @@
     <string name="acercaDe_string">Acerca De</string>
     <string name="objetivo_string">Objetivo:</string>
     <string name="salir_string">Salir</string>
+    <string name="error_string">Error</string>
 </resources>

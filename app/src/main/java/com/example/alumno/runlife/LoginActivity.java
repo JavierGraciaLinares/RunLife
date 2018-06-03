@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private static final int LOGINGOOGLE = 666;
 
     private LinearLayout linearLayoutLoginDown, linearLayoutLoginUp;
-    private Animation upToDown, downToUp;
 
     private GoogleApiClient googleApiClient;
 
@@ -35,20 +34,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
 
         //Animacion Wellcome
-        linearLayoutLoginDown = (LinearLayout)findViewById(R.id.linearLayoutLoginDown);
-        linearLayoutLoginUp = (LinearLayout)findViewById(R.id.linearLayoutLoginUp);
-        upToDown = AnimationUtils.loadAnimation(this,R.anim.bajar_elemento);
-        downToUp= AnimationUtils.loadAnimation(this,R.anim.subir_elemento);
-        linearLayoutLoginUp.setAnimation(upToDown);
-        linearLayoutLoginDown.setAnimation(downToUp);
+        linearLayoutLoginDown = (LinearLayout) findViewById(R.id.linearLayoutLoginDown);
+        linearLayoutLoginUp = (LinearLayout) findViewById(R.id.linearLayoutLoginUp);
+        Animaciones.descenderElemento(this, linearLayoutLoginUp);
+        Animaciones.ascenderElemento(this, linearLayoutLoginDown);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
 
         botonLoginGoogle = (SignInButton) findViewById(R.id.botonLoginGoogle);
@@ -62,27 +59,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == LOGINGOOGLE){
+        if (requestCode == LOGINGOOGLE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             resultadoLoginGoogle(result);
         }
     }
 
     private void resultadoLoginGoogle(GoogleSignInResult result) {
-        if(result.isSuccess()){
+        if (result.isSuccess()) {
             Intent anIntent = new Intent(this, MainActivity.class);
-            anIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //Flag activity para no volver a esta ventana pulsando volver
+            anIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); //Flag activity para no volver a esta ventana pulsando volver
             startActivity(anIntent);
-        }else{
-            Toast.makeText(this,"Sin acceso",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, getResources().getText(R.string.error_string), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(this, getResources().getText(R.string.error_string), Toast.LENGTH_LONG).show();
     }
 }

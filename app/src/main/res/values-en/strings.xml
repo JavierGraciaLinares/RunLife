@@ -23,4 +23,5 @@
     <string name="acercaDe_string">Info</string>
     <string name="objetivo_string">Objective:</string>
     <string name="salir_string">Exit</string>
+    <string name="error_string">Error</string>
 </resources>

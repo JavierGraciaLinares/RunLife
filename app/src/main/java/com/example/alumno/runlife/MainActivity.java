@@ -171,8 +171,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.menuBar_acercaDe) {
+            Intent intent = new Intent(this, AcercaDeActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_ayuda) {
             Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
-        }else if (id == R.id.menu_salir) {
+        } else if (id == R.id.menu_salir) {
             logout();
         }
 
@@ -225,14 +226,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void logout(){
+    private void logout() {
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                if(status.isSuccess()){
+                if (status.isSuccess()) {
                     volverPantallaLogin();
-                }else{
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), getResources().getText(R.string.error_string) + " " + getResources().getText(R.string.salir_string), Toast.LENGTH_SHORT).show();
                 }
             }
         });
