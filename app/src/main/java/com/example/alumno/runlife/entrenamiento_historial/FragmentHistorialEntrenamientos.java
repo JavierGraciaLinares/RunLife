@@ -54,8 +54,8 @@ public class FragmentHistorialEntrenamientos extends Fragment {
 
         this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
 
-        if(!Comprobadores.internetActivado(rootView.getContext())){
-            Toast.makeText(rootView.getContext(), "", Toast.LENGTH_SHORT).show();
+        if (!Comprobadores.internetActivado(rootView.getContext())) {
+            Toast.makeText(rootView.getContext(), getResources().getString(R.string.comprobarInternet_string), Toast.LENGTH_SHORT).show();
         }
 
         arrayAdapterHistorial = new ArrayAdapterHistorial(rootView.getContext(), R.layout.row_historial_entrenamientos, arrayListHistorialEntrenamientoDatoses);

@@ -11,10 +11,10 @@ public class Popup {
     public static final boolean POPUP_NO_MODAL = false;
     public static final boolean POPUP_MODAL = true;
 
-    public static Dialog generarPopUp(Activity activity, int layout, boolean popupModal){
+    public static Dialog generarPopUp(Activity activity, int layout, boolean popupModal) {
         Dialog dialog = new Dialog(activity);
         dialog.setContentView(layout);
-        if(popupModal) {
+        if (popupModal) {
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(true);
         }

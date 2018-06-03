@@ -70,7 +70,7 @@ public class ArrayAdapterHistorial extends ArrayAdapter<EntrenamientoDatos> {
         int minutes = (int) (tiempoEntrenamiento - hours * 3600000) / 60000;
         int seconds = (int) (tiempoEntrenamiento - hours * 3600000 - minutes * 60000) / 1000;
         textViewHistorialDuracionEntrenamiento.setText(String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
-        textViewHistorialVelocidadMedia.setText(listaEntrenamientoDatoses.get(position).getVelocidadMedia()+"min/km");
+        textViewHistorialVelocidadMedia.setText(listaEntrenamientoDatoses.get(position).getVelocidadMedia() + "min/km");
         textViewHistorialDistancia.setText(listaEntrenamientoDatoses.get(position).getDistanciarecorridaEnKMString());
         return returnView;
     }

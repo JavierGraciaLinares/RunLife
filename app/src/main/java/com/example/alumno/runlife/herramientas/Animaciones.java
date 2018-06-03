@@ -13,17 +13,17 @@ import com.example.alumno.runlife.R;
  */
 
 public class Animaciones {
-    public static void vueltaCompletaFloatinButton(Context context,FloatingActionButton floatingActionButton){
+    public static void vueltaCompletaFloatinButton(Context context, FloatingActionButton floatingActionButton) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.vuelta_completa);
         floatingActionButton.startAnimation(animation);
     }
 
-    public static void descenderElemento(Context context, LinearLayout linearLayout){
+    public static void descenderElemento(Context context, LinearLayout linearLayout) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.bajar_elemento);
         linearLayout.startAnimation(animation);
     }
 
-    public static void ascenderElemento(Context context, LinearLayout linearLayout){
+    public static void ascenderElemento(Context context, LinearLayout linearLayout) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.subir_elemento);
         linearLayout.startAnimation(animation);
     }

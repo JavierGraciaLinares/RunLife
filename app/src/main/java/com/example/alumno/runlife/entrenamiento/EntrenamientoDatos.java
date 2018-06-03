@@ -75,7 +75,7 @@ public class EntrenamientoDatos {
 
     public double calcularKmXHMedia(long elapsedRealtime, long crono) {
         tiempoEntrenamiento = elapsedRealtime - crono;
-        Log.i(MainActivity.TAGDEVELOP,"Distancia entre 2 puntos : " + distanciaRecorrida + "      tiempoEntrenamiento: " + tiempoEntrenamiento/1000);
+        Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos : " + distanciaRecorrida + "      tiempoEntrenamiento: " + tiempoEntrenamiento / 1000);
         return ((distanciaRecorrida / (tiempoEntrenamiento / 1000))*3.6);//Km/H
     }
 

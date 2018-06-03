@@ -15,7 +15,7 @@ public class PuntoDeRuta {
     private Timestamp tiempo;
 
     public PuntoDeRuta(Location localizacion) {
-        this.geopunto = new GeoPoint(localizacion.getLatitude(),localizacion.getLongitude());
+        this.geopunto = new GeoPoint(localizacion.getLatitude(), localizacion.getLongitude());
         this.tiempo = new Timestamp(System.currentTimeMillis());
     }
 

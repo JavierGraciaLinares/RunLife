@@ -22,8 +22,8 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        viewPagerTutorial = (ViewPager)findViewById(R.id.slideWiewPagerTutorial);
-        dotsLayoutTutorial = (LinearLayout)findViewById(R.id.dotsLayoutTutorial);
+        viewPagerTutorial = (ViewPager) findViewById(R.id.slideWiewPagerTutorial);
+        dotsLayoutTutorial = (LinearLayout) findViewById(R.id.dotsLayoutTutorial);
 
         slideAdapterTutorial = new SlideAdapterTutorial(this);
         viewPagerTutorial.setAdapter(slideAdapterTutorial);
@@ -32,10 +32,10 @@ public class TutorialActivity extends AppCompatActivity {
         viewPagerTutorial.addOnPageChangeListener(viewListener);
     }
 
-    public void anyadirPuntosIndicadores(int position){
+    public void anyadirPuntosIndicadores(int position) {
         mDots = new TextView[3];
         dotsLayoutTutorial.removeAllViews();
-        for(int i = 0 ; i< mDots.length;i++){
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(35);
@@ -43,7 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
 
             dotsLayoutTutorial.addView(mDots[i]);
         }
-        if(mDots.length>0){
+        if (mDots.length > 0) {
             mDots[position].setTextColor(getResources().getColor(R.color.colorWhite));
         }
     }

@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.alumno.runlife.R;
+import com.example.alumno.runlife.herramientas.Comprobadores;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,8 +40,11 @@ public class FragmentCarreras extends Fragment implements IJsonCarrera {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_listas, container, false);
 
-        this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
+        if (!Comprobadores.internetActivado(rootView.getContext())) {
+            Toast.makeText(rootView.getContext(), getResources().getString(R.string.comprobarInternet_string), Toast.LENGTH_SHORT).show();
+        }
 
+        this.listViewlistaHistorial = rootView.findViewById(R.id.listViewlistaHistorial);
 
         arrayAdapterCarreras = new ArrayAdapterCarreras(rootView.getContext(), R.layout.row_carrera, arrayListCarreras);
         listViewlistaHistorial.setAdapter(arrayAdapterCarreras);

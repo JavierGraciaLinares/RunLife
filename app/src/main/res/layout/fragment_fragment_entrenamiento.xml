@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background_white"
+    android:orientation="vertical"
     tools:context="com.example.alumno.runlife.entrenamiento.FragmentEntrenamiento">
 
     <!-- TODO: Update blank fragment layout -->
@@ -37,13 +37,13 @@
             android:id="@+id/imageView"
             android:layout_width="91dp"
             android:layout_height="94dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/chronometerEntrenamientoLibre"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/time48px"
-            app:layout_constraintBottom_toBottomOf="@+id/chronometerEntrenamientoLibre"
-            android:layout_marginBottom="8dp" />
+            app:srcCompat="@drawable/time48px" />
 
         <Chronometer
             android:id="@+id/chronometerEntrenamientoLibre"
@@ -65,21 +65,21 @@
             android:id="@+id/imageView2"
             android:layout_width="89dp"
             android:layout_height="77dp"
-            app:srcCompat="@drawable/distance48px"
             android:layout_marginLeft="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/chronometerEntrenamientoLibre" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chronometerEntrenamientoLibre"
+            app:srcCompat="@drawable/distance48px" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:srcCompat="@drawable/speed48px"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:srcCompat="@drawable/speed48px" />
 
         <TextView
             android:id="@+id/textViewDistanciaRecorrida"
@@ -103,6 +103,7 @@
             android:id="@+id/textViewVelocidadMedia"
             android:layout_width="252dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
@@ -111,12 +112,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintLeft_toRightOf="@+id/imageView2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView3"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            android:layout_marginBottom="8dp" />
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
         <TextView
             android:id="@+id/textView3"

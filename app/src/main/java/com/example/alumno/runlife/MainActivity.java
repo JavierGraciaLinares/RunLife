@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentEntrenamiento.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
                 fragmentTransaction.commit();
-            }else{
+            } else {
                 Toast.makeText(this, getResources().getString(R.string.activeGPS_string), Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.menu_entrenamientoDistancia) {
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentEntrenamiento.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frameLayoutMain, fragmentEntrenamiento);
                 fragmentTransaction.commit();
-            }else{
+            } else {
                 Toast.makeText(this, getResources().getString(R.string.activeGPS_string), Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.menu_historial) {

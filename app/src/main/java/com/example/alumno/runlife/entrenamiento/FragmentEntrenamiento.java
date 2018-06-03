@@ -224,7 +224,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                     buttonOkDistancia.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(!textViewDistanciaEntrenamiento.getText().toString().isEmpty() && Integer.parseInt(textViewDistanciaEntrenamiento.getText().toString()) > 0) {
+                            if (!textViewDistanciaEntrenamiento.getText().toString().isEmpty() && Integer.parseInt(textViewDistanciaEntrenamiento.getText().toString()) > 0) {
                                 entrenamientoDatos.setDistanciaObjetivo(Integer.parseInt(textViewDistanciaEntrenamiento.getText().toString()));
                                 popupConfiguracion.cancel();
                                 textViewObjetivoEntrenamiento.setText(entrenamientoDatos.getDistanciaObjetivo() + " m");

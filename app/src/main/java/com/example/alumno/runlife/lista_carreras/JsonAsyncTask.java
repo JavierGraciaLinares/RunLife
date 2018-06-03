@@ -77,7 +77,7 @@ public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
                         Uri enlace = Uri.parse(carreraJson.getString(ENLACE));
 
                         //Añadir carrera a la lista
-                        publishProgress(new Carrera(fecha,hora,lugar,nombre,descripcion,distancia,enlace));
+                        publishProgress(new Carrera(fecha, hora, lugar, nombre, descripcion, distancia, enlace));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
