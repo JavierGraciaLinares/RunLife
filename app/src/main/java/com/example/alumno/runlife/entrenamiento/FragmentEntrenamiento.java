@@ -135,13 +135,14 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                             // Distancia Recorrida
                             entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
                             textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
-                        }
-                        //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
-                        //Insertar PUNTO DE RUTA
-                        entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
-                        //Calcular y Mostrar VELOCIDAD MEDIA
-                        textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
 
+                            //                ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡METER DENTRO DEL IF!!!!!!!!!!!!!!!!!
+                            //Insertar PUNTO DE RUTA
+                            entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                            //Calcular y Mostrar VELOCIDAD MEDIA
+                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
+
+                        }
                     }
                     entrenamientoDatos.setTiempoAnterior(SystemClock.elapsedRealtime());
                 }
