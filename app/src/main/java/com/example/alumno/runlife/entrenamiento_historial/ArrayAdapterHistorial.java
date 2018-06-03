@@ -1,4 +1,4 @@
-package com.example.alumno.runlife.adapters;
+package com.example.alumno.runlife.entrenamiento_historial;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
+import com.example.alumno.runlife.entrenamiento.EntrenamientoDatos;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,9 +1,8 @@
-package com.example.alumno.runlife.fragmentsEntrenamientos;
+package com.example.alumno.runlife.lista_carreras;
 
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.alumno.runlife.Carrera;
-import com.example.alumno.runlife.InformacionEntrenamientoActivity;
 import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.adapters.ArrayAdapterCarreras;
-import com.example.alumno.runlife.jsonLector.IJsonCarrera;
-import com.example.alumno.runlife.jsonLector.JsonAsyncTask;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 /**

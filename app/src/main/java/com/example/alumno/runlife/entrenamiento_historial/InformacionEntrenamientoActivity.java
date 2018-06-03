@@ -1,4 +1,4 @@
-package com.example.alumno.runlife;
+package com.example.alumno.runlife.entrenamiento_historial;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
+import com.example.alumno.runlife.MainActivity;
+import com.example.alumno.runlife.R;
+import com.example.alumno.runlife.entrenamiento.EntrenamientoDatos;
 import com.example.alumno.runlife.herramientas.Popup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;

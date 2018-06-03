@@ -1,4 +1,4 @@
-package com.example.alumno.runlife.fragmentsEntrenamientos;
+package com.example.alumno.runlife.entrenamiento_historial;
 
 
 import android.content.Intent;
@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.alumno.runlife.InformacionEntrenamientoActivity;
 import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
-import com.example.alumno.runlife.adapters.ArrayAdapterHistorial;
+import com.example.alumno.runlife.entrenamiento.EntrenamientoDatos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,7 +30,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHistorial extends Fragment {
+public class FragmentHistorialEntrenamientos extends Fragment {
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
@@ -43,7 +42,7 @@ public class FragmentHistorial extends Fragment {
     ListView listViewlistaHistorial;
     ArrayAdapterHistorial arrayAdapterHistorial;
 
-    public FragmentHistorial() {
+    public FragmentHistorialEntrenamientos() {
 
     }
 

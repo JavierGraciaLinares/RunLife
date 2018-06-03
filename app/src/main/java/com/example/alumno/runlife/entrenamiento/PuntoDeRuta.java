@@ -1,12 +1,10 @@
-package com.example.alumno.runlife.fragmentsEntrenamientos;
+package com.example.alumno.runlife.entrenamiento;
 
 import android.location.Location;
 
 import com.google.firebase.firestore.GeoPoint;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
  * Created by javi on 17/05/2018.

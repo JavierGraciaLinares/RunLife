@@ -23,11 +23,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.alumno.runlife.fragmentsEntrenamientos.EntrenamientoDatos;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentCarreras;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentEntrenamiento;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentHistorial;
-import com.example.alumno.runlife.fragmentsEntrenamientos.FragmentPortada;
+import com.example.alumno.runlife.tutorial.TutorialActivity;
+import com.example.alumno.runlife.entrenamiento.EntrenamientoDatos;
+import com.example.alumno.runlife.lista_carreras.FragmentCarreras;
+import com.example.alumno.runlife.entrenamiento.FragmentEntrenamiento;
+import com.example.alumno.runlife.entrenamiento_historial.FragmentHistorialEntrenamientos;
 import com.example.alumno.runlife.herramientas.Comprobadores;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.menu_historial) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
+            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorialEntrenamientos());
             fragmentTransaction.commit();
         } else if (id == R.id.menu_carreras) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

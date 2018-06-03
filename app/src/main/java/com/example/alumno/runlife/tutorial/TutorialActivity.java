@@ -1,4 +1,4 @@
-package com.example.alumno.runlife;
+package com.example.alumno.runlife.tutorial;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.text.Html;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.alumno.runlife.adapters.SlideAdapterTutorial;
+import com.example.alumno.runlife.R;
 
 public class TutorialActivity extends AppCompatActivity {
 

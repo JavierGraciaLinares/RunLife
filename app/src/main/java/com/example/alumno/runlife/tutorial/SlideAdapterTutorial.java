@@ -1,7 +1,6 @@
-package com.example.alumno.runlife.adapters;
+package com.example.alumno.runlife.tutorial;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;

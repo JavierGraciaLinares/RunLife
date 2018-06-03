@@ -1,4 +1,4 @@
-package com.example.alumno.runlife.fragmentsEntrenamientos;
+package com.example.alumno.runlife.entrenamiento;
 
 
 import android.Manifest;
@@ -30,7 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.alumno.runlife.Animaciones;
+import com.example.alumno.runlife.entrenamiento_historial.FragmentHistorialEntrenamientos;
+import com.example.alumno.runlife.herramientas.Animaciones;
 import com.example.alumno.runlife.MainActivity;
 import com.example.alumno.runlife.R;
 import com.example.alumno.runlife.herramientas.Popup;
@@ -276,7 +277,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
         decirConVoz(getResources().getString(R.string.entrenamientoFinalizado_string));
         entrenamientoDatos.insertarEntrenamientoEnFirebase();
         FragmentTransaction fragmentTransaction = MainActivity.fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorial());
+        fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentHistorialEntrenamientos());
         fragmentTransaction.commit();
     }
 

@@ -1,4 +1,4 @@
-package com.example.alumno.runlife;
+package com.example.alumno.runlife.lista_carreras;
 
 import android.net.Uri;
 

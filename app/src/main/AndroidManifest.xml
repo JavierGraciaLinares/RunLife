@@ -36,12 +36,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InformacionEntrenamientoActivity"
+            android:name=".entrenamiento_historial.InformacionEntrenamientoActivity"
             android:label="@string/title_activity_informacion_entrenamiento"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TutorialActivity"
+            android:name=".tutorial.TutorialActivity"
             android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

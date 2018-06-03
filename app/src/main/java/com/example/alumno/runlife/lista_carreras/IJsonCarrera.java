@@ -1,6 +1,4 @@
-package com.example.alumno.runlife.jsonLector;
-
-import com.example.alumno.runlife.Carrera;
+package com.example.alumno.runlife.lista_carreras;
 
 /**
  * Created by javi on 30/05/2018.

@@ -1,4 +1,4 @@
-package com.example.alumno.runlife.adapters;
+package com.example.alumno.runlife.lista_carreras;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,10 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.alumno.runlife.Carrera;
+import com.example.alumno.runlife.lista_carreras.Carrera;
 import com.example.alumno.runlife.R;
 
 import java.text.SimpleDateFormat;

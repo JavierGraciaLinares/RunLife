@@ -1,4 +1,4 @@
-package com.example.alumno.runlife.fragmentsEntrenamientos;
+package com.example.alumno.runlife.entrenamiento;
 
 import android.location.Location;
 import android.os.Build;

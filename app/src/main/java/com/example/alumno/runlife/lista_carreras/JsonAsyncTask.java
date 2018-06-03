@@ -1,9 +1,7 @@
-package com.example.alumno.runlife.jsonLector;
+package com.example.alumno.runlife.lista_carreras;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-
-import com.example.alumno.runlife.Carrera;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
