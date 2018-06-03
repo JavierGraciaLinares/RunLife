@@ -119,11 +119,11 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                         entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                     }
                     distanciaEntreDosPuntos = entrenamientoDatos.getLocalizacionAnterior().distanceTo(localizacionActual);
-                    entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                     Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
 
                     if (entrenamientoDatos.numeroLocalizacion < 5 || (distanciaEntreDosPuntos > 10 && !entrenamientoDatos.isEnMarcha())) {
                         entrenamientoDatos.numeroLocalizacion++;
+                        entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                     } else if (!entrenamientoDatos.isEnMarcha()) {
                         calibracionGPSFinalizada();
                     } else if (entrenamientoDatos.getTipoEntrenamiento() == EntrenamientoDatos.ENTRENAMIENTO_TIPO_DISTANCIA && entrenamientoDatos.getDistanciaRecorrida() >= entrenamientoDatos.getDistanciaObjetivo()) {
@@ -142,6 +142,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                             //Calcular y Mostrar VELOCIDAD MEDIA
                             textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
 
+                            entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                         }
                     }
                     entrenamientoDatos.setTiempoAnterior(SystemClock.elapsedRealtime());
@@ -271,6 +272,7 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
         cronometro.setBase(SystemClock.elapsedRealtime());
         cronometro.start();
         sonidoComienzo();
+        decirConVoz(getResources().getString(R.string.comienzoEntrenamiento_voice));
         establecerBotonStop();
     }
 
