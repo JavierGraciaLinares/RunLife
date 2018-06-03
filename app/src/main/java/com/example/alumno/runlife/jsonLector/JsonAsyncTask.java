@@ -25,7 +25,9 @@ import java.util.Date;
  */
 
 public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
-    public static final String OK = "OK";
+
+    //Campos fichro JSON
+    private static final String OK = "OK";
     private static final String STATUS = "status";
     private static final String CARRERAS = "carreras";
     private static final String FECHA = "fecha";
@@ -36,6 +38,7 @@ public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
     private static final String DISTANCIA = "distancia";
     private static final String ENLACE = "enlace";
 
+    //Interfaz añadir campos a la lista
     private IJsonCarrera iJsonCarrera;
 
     public JsonAsyncTask(IJsonCarrera iJsonCarrera) {
@@ -48,20 +51,20 @@ public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
         String line;
         try {
 
-            //Acemos la conexion que nos devolverá el JSON
+            //Conexión con fichero JSON
             URL aURL = new URL("https://testrunlife.firebaseapp.com/JSON/jsoncarreras.json");
             HttpURLConnection aConnection = (HttpURLConnection) aURL.openConnection();
             aConnection.setRequestMethod("GET");
 
-            //Cargamos el JSON
+            //Cargar el JSON
             BufferedReader aBufferedReader = new BufferedReader(new InputStreamReader(aConnection.getInputStream()));
             while ((line = aBufferedReader.readLine()) != null) {
                 result.append(line);
             }
             aConnection.disconnect();
 
+            //Leer JSOn
             JSONObject anObject = new JSONObject(result.toString());
-
             if (anObject.getString(STATUS).equals(OK)) {
                 JSONArray resultArray = anObject.getJSONArray(CARRERAS);
                 for (int i = 0; i < resultArray.length(); i++) {
@@ -75,6 +78,8 @@ public class JsonAsyncTask extends AsyncTask<Void, Carrera, Void> {
                         String descripcion = carreraJson.getString(DESCRIPCION);
                         String distancia = carreraJson.getString(DISTANCIA);
                         Uri enlace = Uri.parse(carreraJson.getString(ENLACE));
+
+                        //Añadir carrera a la lista
                         publishProgress(new Carrera(fecha,hora,lugar,nombre,descripcion,distancia,enlace));
                     } catch (ParseException e) {
                         e.printStackTrace();

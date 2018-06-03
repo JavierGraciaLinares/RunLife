@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.example.alumno.runlife.adapters.SlideAdapter;
+import com.example.alumno.runlife.adapters.SlideAdapterTutorial;
 
 public class TutorialActivity extends AppCompatActivity {
 
     private ViewPager viewPagerTutorial;
     private LinearLayout dotsLayoutTutorial;
-    private SlideAdapter slideAdapter;
+    private SlideAdapterTutorial slideAdapterTutorial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +21,8 @@ public class TutorialActivity extends AppCompatActivity {
         viewPagerTutorial = (ViewPager)findViewById(R.id.slideWiewPagerTutorial);
         dotsLayoutTutorial = (LinearLayout)findViewById(R.id.dotsLayoutTutorial);
 
-        slideAdapter = new SlideAdapter(this);
-        viewPagerTutorial.setAdapter(slideAdapter);
+        slideAdapterTutorial = new SlideAdapterTutorial(this);
+        viewPagerTutorial.setAdapter(slideAdapterTutorial);
     }
 
     public void addDotsIndicator(){

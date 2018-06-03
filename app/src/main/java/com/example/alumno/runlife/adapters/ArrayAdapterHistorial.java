@@ -24,18 +24,18 @@ import java.util.ArrayList;
 
 public class ArrayAdapterHistorial extends ArrayAdapter<EntrenamientoDatos> {
 
-    public Context aContext;
-    public int aResource;
-    public ArrayList<EntrenamientoDatos> listaEntrenamientoDatoses;
+    private Context aContext;
+    private int aResource;
+    private ArrayList<EntrenamientoDatos> listaEntrenamientoDatoses;
 
     //Elementos de la fila
-    public TextView textViewHistorialFecha;
-    public TextView textViewHistorialDuracionEntrenamiento;
-    public TextView textViewHistorialDistancia;
-    public TextView textViewHistorialVelocidadMedia;
-    public ImageView imageViewHistorialTipoEntrenamiento;
-    public ImageView imageViewHistorialDuracionEntrenamiento;
-    public ImageView imageViewHistorialVelocidadMedia;
+    private TextView textViewHistorialFecha;
+    private TextView textViewHistorialDuracionEntrenamiento;
+    private TextView textViewHistorialDistancia;
+    private TextView textViewHistorialVelocidadMedia;
+    private ImageView imageViewHistorialTipoEntrenamiento;
+    private ImageView imageViewHistorialDuracionEntrenamiento;
+    private ImageView imageViewHistorialVelocidadMedia;
 
     public ArrayAdapterHistorial(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<EntrenamientoDatos> listaEntrenamientoDatoses) {
         super(context, resource, listaEntrenamientoDatoses);

@@ -15,12 +15,12 @@ import com.example.alumno.runlife.R;
  * Created by javi on 19/05/2018.
  */
 
-public class SlideAdapter extends PagerAdapter {
+public class SlideAdapterTutorial extends PagerAdapter {
 
-    Context context;
-    LayoutInflater layoutInflater;
+    private Context context;
+    private LayoutInflater layoutInflater;
 
-    public SlideAdapter(Context context) {
+    public SlideAdapterTutorial(Context context) {
         this.context = context;
     }
 

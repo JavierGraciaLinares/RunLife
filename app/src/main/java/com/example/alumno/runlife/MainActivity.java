@@ -36,20 +36,23 @@ import com.google.android.gms.common.api.ResultCallback;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
-
+    //TAG DEPURACION
     public static final String TAGDEVELOP = "TAGDEVELOP";
     public static final String TAGDEBUG = "TAGDEBUG";
 
-
     public static final int RESPUESTAPERMISOS = 1;
+
+    //Cuenta Google del Usuario
     public static GoogleSignInAccount cuentaGoogleUsuario;
 
-    FragmentManager fragmentManager;
+    //Datos menu
+    private ImageView imageViewPerfilUsuario;
+    private TextView textViewNombrePerfilUsuario;
+    private TextView textViewEmailPerfilUsuario;
 
-    ImageView imageViewPerfilUsuario;
-    TextView textViewNombrePerfilUsuario;
-    TextView textViewEmailPerfilUsuario;
+    private FragmentManager fragmentManager;
     private GoogleApiClient googleApiClient;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        /*<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             resultadoLogin(result);
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity
                     resultadoLogin(googleSignInResult);
                 }
             });
-        }*/
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -115,21 +118,6 @@ public class MainActivity extends AppCompatActivity
             cuentaGoogleUsuario = result.getSignInAccount();
             textViewNombrePerfilUsuario.setText(cuentaGoogleUsuario.getDisplayName());
             textViewEmailPerfilUsuario.setText(cuentaGoogleUsuario.getEmail());
-
-            //IMAGEN
-            /*try {
-                    String urlfotoString = "https://lh5.googleusercontent.com/-8zHRzn1ab2Q/AAAAAAAAAAI/AAAAAAAAMcs/Hvw1DuEyoe4/photo.jpg";
-                    URL urlFoto = new URL(urlfotoString);
-                    Bitmap image = BitmapFactory.decodeStream(urlFoto.openConnection().getInputStream());
-                    ImageView imageViewTest = (ImageView) findViewById(R.id.imageView2);
-                    imageViewTest.setImageBitmap(image);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
         } else {
             volverPantallaLogin();
         }
@@ -195,9 +183,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_portada) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frameLayoutMain, new FragmentPortada());
-            fragmentTransaction.commit();
+            Intent intent = new Intent(this, FragmentPortada.class);
+            startActivity(intent);
         } else if (id == R.id.menu_entrenamientoLibre) {
             Bundle bundle = new Bundle();
             bundle.putInt(EntrenamientoDatos.ENTRENAMIENTO_TIPO, EntrenamientoDatos.ENTRENAMIENTO_TIPO_LIBRE);

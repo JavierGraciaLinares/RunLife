@@ -24,15 +24,15 @@ import java.util.ArrayList;
 
 public class ArrayAdapterCarreras extends ArrayAdapter<Carrera> {
 
-    public Context aContext;
-    public int aResource;
-    public ArrayList<Carrera> listaCarreras;
+    private Context aContext;
+    private int aResource;
+    private ArrayList<Carrera> listaCarreras;
 
     //Elementos de la fila
-    public TextView aTextViewCarreraDistancia;
-    public TextView aTextViewCarreraFecha;
-    public TextView aTextViewCarreraLugar;
-    public TextView aTextViewCarreraNombre;
+    private TextView aTextViewCarreraDistancia;
+    private TextView aTextViewCarreraFecha;
+    private TextView aTextViewCarreraLugar;
+    private TextView aTextViewCarreraNombre;
 
     public ArrayAdapterCarreras(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Carrera> listaCarreras) {
         super(context, resource, listaCarreras);
