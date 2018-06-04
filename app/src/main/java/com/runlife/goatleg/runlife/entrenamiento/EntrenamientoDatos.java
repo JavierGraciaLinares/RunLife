@@ -97,7 +97,7 @@ public class EntrenamientoDatos {
         entidadEntrenamiento.put("Usuario", MainActivity.cuentaGoogleUsuario.getEmail());
         entidadEntrenamiento.put(DISTANCIARECORRIDA, distanciaRecorrida);
         entidadEntrenamiento.put(TIEMPOENTRENAMIENTO, tiempoEntrenamiento);
-        entidadEntrenamiento.put(VELOCIDADMEDIA, velocidadMedia);
+        //entidadEntrenamiento.put(VELOCIDADMEDIA, velocidadMedia);
 
         entidadEntrenamiento.put("Recorrido",recorrido);
         db.collection("EntrenamientoDatos")
