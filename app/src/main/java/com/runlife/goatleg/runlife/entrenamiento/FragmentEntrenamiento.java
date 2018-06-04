@@ -184,8 +184,8 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
     private void configuracionSolicitudGPS() {
         aClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
         aRequest = new LocationRequest();
-        aRequest.setInterval(10000);
-        aRequest.setFastestInterval(2000);
+        aRequest.setInterval(15000);
+        aRequest.setFastestInterval(5000);
         aRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
