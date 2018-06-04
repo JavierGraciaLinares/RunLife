@@ -64,7 +64,7 @@ public class EntrenamientoDatos {
         this.velocidadMedia = 0;
     }
 
-    public EntrenamientoDatos(Timestamp horaDelEntrenamiento, double distanciaRecorrida, ArrayList<GeoPoint> recorrido, long tiempoEntrenamiento, long velocidadMedia, String idEntrenamiento) {
+    public EntrenamientoDatos(Timestamp horaDelEntrenamiento, double distanciaRecorrida, ArrayList<GeoPoint> recorrido, long tiempoEntrenamiento, double velocidadMedia, String idEntrenamiento) {
         this.horaDelEntrenamiento = horaDelEntrenamiento;
         this.distanciaRecorrida = distanciaRecorrida;
         this.recorrido = recorrido;

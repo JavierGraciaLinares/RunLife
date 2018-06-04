@@ -76,7 +76,7 @@ public class FragmentHistorialEntrenamientos extends Fragment {
                             for (DocumentSnapshot entrenamientoQuery : task.getResult()) {
                                 Log.d(MainActivity.TAGDEVELOP, entrenamientoQuery.getId() + " => " + entrenamientoQuery.getData());
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = new ArrayList<GeoPoint>();
-                                arrayListHistorialEntrenamientoDatoses.add(new EntrenamientoDatos(new Timestamp(((Date)entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA),entrenamientoQuery.getId()));
+                                arrayListHistorialEntrenamientoDatoses.add(new EntrenamientoDatos(new Timestamp(((Date)entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO),(double)entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA),entrenamientoQuery.getId()));
                                 arrayAdapterHistorial.notifyDataSetChanged();
                             }
                         } else {
