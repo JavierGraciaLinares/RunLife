@@ -32,8 +32,6 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentHistorialEntrenamientos extends Fragment {
-    public static final String TAGDEVELOP = "TAGDEVELOP";
-    public static final String TAGDEBUG = "TAGDEBUG";
 
     private ArrayList<EntrenamientoDatos> arrayListHistorialEntrenamientoDatoses = new ArrayList<>();
 
@@ -76,13 +74,13 @@ public class FragmentHistorialEntrenamientos extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot entrenamientoQuery : task.getResult()) {
-                                Log.d(TAGDEVELOP, entrenamientoQuery.getId() + " => " + entrenamientoQuery.getData());
+                                Log.d(MainActivity.TAGDEVELOP, entrenamientoQuery.getId() + " => " + entrenamientoQuery.getData());
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = new ArrayList<GeoPoint>();
                                 arrayListHistorialEntrenamientoDatoses.add(new EntrenamientoDatos(new Timestamp(((Date)entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO),(long)entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA),entrenamientoQuery.getId()));
                                 arrayAdapterHistorial.notifyDataSetChanged();
                             }
                         } else {
-                            Log.d(TAGDEVELOP, "Error getting documents: ", task.getException());
+                            Log.d(MainActivity.TAGDEVELOP, "Error getting documents: ", task.getException());
                         }
                     }
                 });

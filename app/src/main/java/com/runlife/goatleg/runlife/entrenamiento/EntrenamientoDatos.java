@@ -41,7 +41,7 @@ public class EntrenamientoDatos {
 
     private int tipoEntrenamiento;
 
-    private long velocidadMedia;
+    private double velocidadMedia;
     public double distanciaRecorrida;
     private long tiempoEntrenamiento;
     private ArrayList<GeoPoint> recorrido;
@@ -76,6 +76,7 @@ public class EntrenamientoDatos {
     public double calcularKmXHMedia(long elapsedRealtime, long crono) {
         tiempoEntrenamiento = elapsedRealtime - crono;
         Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos : " + distanciaRecorrida + "      tiempoEntrenamiento: " + tiempoEntrenamiento / 1000);
+        velocidadMedia = ((distanciaRecorrida / (tiempoEntrenamiento / 1000))*3.6);
         return ((distanciaRecorrida / (tiempoEntrenamiento / 1000))*3.6);//Km/H
     }
 
@@ -97,7 +98,7 @@ public class EntrenamientoDatos {
         entidadEntrenamiento.put("Usuario", MainActivity.cuentaGoogleUsuario.getEmail());
         entidadEntrenamiento.put(DISTANCIARECORRIDA, distanciaRecorrida);
         entidadEntrenamiento.put(TIEMPOENTRENAMIENTO, tiempoEntrenamiento);
-        //entidadEntrenamiento.put(VELOCIDADMEDIA, velocidadMedia);
+        entidadEntrenamiento.put(VELOCIDADMEDIA, velocidadMedia);
 
         entidadEntrenamiento.put("Recorrido",recorrido);
         db.collection("EntrenamientoDatos")
@@ -186,11 +187,11 @@ public class EntrenamientoDatos {
         this.tiempoEntrenamiento = tiempoEntrenamiento;
     }
 
-    public long getVelocidadMedia() {
+    public double getVelocidadMedia() {
         return velocidadMedia;
     }
 
-    public void setVelocidadMedia(long velocidadMedia) {
+    public void setVelocidadMedia(double velocidadMedia) {
         this.velocidadMedia = velocidadMedia;
     }
 
