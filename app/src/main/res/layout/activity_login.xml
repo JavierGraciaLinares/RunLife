@@ -7,7 +7,7 @@
     android:background="@drawable/background_red"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.example.alumno.runlife.LoginActivity">
+    tools:context="com.runlife.goatleg.runlife.LoginActivity">
 
     <LinearLayout
         android:id="@+id/linearLayoutLoginUp"

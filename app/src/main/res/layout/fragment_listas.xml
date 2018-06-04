@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.alumno.runlife.entrenamiento_historial.FragmentHistorialEntrenamientos">
+    tools:context="com.runlife.goatleg.runlife.entrenamiento_historial.FragmentHistorialEntrenamientos">
 
     <!-- TODO: Update blank fragment layout -->
     <!-- Añadido Javi   focusableInTouchMode y focusable

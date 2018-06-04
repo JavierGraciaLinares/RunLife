@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.alumno.runlife">
+    package="com.runlife.goatleg.runlife">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -20,14 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.runlife.goatleg.runlife.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.runlife.goatleg.runlife.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,12 +36,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".entrenamiento_historial.InformacionEntrenamientoActivity"
+            android:name="com.runlife.goatleg.runlife.entrenamiento_historial.InformacionEntrenamientoActivity"
             android:label="@string/title_activity_informacion_entrenamiento"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tutorial.TutorialActivity"
+            android:name="com.runlife.goatleg.runlife.tutorial.TutorialActivity"
             android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -55,7 +55,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".AcercaDeActivity"></activity>
+        <activity android:name="com.runlife.goatleg.runlife.AcercaDeActivity"></activity>
     </application>
 
 </manifest>

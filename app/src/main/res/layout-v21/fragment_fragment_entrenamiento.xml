@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_white"
     android:orientation="vertical"
-    tools:context="com.example.alumno.runlife.entrenamiento.FragmentEntrenamiento">
+    tools:context="com.runlife.goatleg.runlife.entrenamiento.FragmentEntrenamiento">
 
     <!-- TODO: Update blank fragment layout -->
 

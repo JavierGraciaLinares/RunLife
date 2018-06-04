@@ -8,27 +8,23 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:758095994963:android:5e495186455d91e2",
+        "mobilesdk_app_id": "1:758095994963:android:08bc87f6d74c0ec6",
         "android_client_info": {
-          "package_name": "com.example.alumno.runlife"
+          "package_name": "com.runlife.goatleg.runlife"
         }
       },
       "oauth_client": [
         {
-          "client_id": "758095994963-d7f9kshrlshdmn23jjg84a5t2q2s543g.apps.googleusercontent.com",
+          "client_id": "758095994963-05ul057995efa5senspre1mruc5nk5av.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.alumno.runlife",
+            "package_name": "com.runlife.goatleg.runlife",
             "certificate_hash": "c64c565d846fe731ee539b27666233c54b912f77"
           }
         },
         {
-          "client_id": "758095994963-6jkc72pqlmeuof44e0b65mh82cs4aj3d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.alumno.runlife",
-            "certificate_hash": "965d16b76998e6257b9422d22ccc260645f71a1c"
-          }
+          "client_id": "758095994963-94knkjrj2tldh2uoqkpa3scf3otchff1.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "758095994963-94knkjrj2tldh2uoqkpa3scf3otchff1.apps.googleusercontent.com",
