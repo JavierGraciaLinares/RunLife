@@ -73,7 +73,7 @@ public class InformacionEntrenamientoActivity extends AppCompatActivity implemen
                             for (DocumentSnapshot entrenamientoQuery : task.getResult()) {
                                 //Añadir puntos de ruta
                                 ArrayList<GeoPoint> puntoDeRutaArrayList = (ArrayList<GeoPoint>) entrenamientoQuery.get("Recorrido");
-                                entrenamientoDatosVisualizado = new EntrenamientoDatos(new Timestamp(((Date) entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO), (long) entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA), entrenamientoQuery.getId());
+                                entrenamientoDatosVisualizado = new EntrenamientoDatos(new Timestamp(((Date) entrenamientoQuery.get(EntrenamientoDatos.FECHAENTRENAMIENTO)).getTime()), (double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA), puntoDeRutaArrayList, (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO), (double) entrenamientoQuery.get(EntrenamientoDatos.VELOCIDADMEDIA), entrenamientoQuery.getId());
                                 textViewPopupHistorialDistancia.setText(String.format("%.2f", ((double) entrenamientoQuery.get(EntrenamientoDatos.DISTANCIARECORRIDA) / 1000)) + " Km");
 
                                 long tiempoEntrenamiento = (long) entrenamientoQuery.get(EntrenamientoDatos.TIEMPOENTRENAMIENTO);
