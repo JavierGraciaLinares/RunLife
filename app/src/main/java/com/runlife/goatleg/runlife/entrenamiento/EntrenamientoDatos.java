@@ -143,7 +143,7 @@ public class EntrenamientoDatos {
         return numeroLocalizacion;
     }
 
-    public void setnumeroLocalizacionn(int primeraLocalizacion) {
+    public void setnumeroLocalizacion(int primeraLocalizacion) {
         this.numeroLocalizacion = primeraLocalizacion;
     }
 

@@ -8,15 +8,26 @@ import android.app.Dialog;
  */
 
 public class Popup {
-    public static final boolean POPUP_NO_MODAL = false;
-    public static final boolean POPUP_MODAL = true;
+    public static final int POPUP_NO_MODAL = 0;
+    public static final int POPUP_MODAL = 1;
+    public static final int POPUP_SUPERMODAL = 2;
 
-    public static Dialog generarPopUp(Activity activity, int layout, boolean popupModal) {
+    public static Dialog generarPopUp(Activity activity, int layout, int popupModal) {
         Dialog dialog = new Dialog(activity);
         dialog.setContentView(layout);
-        if (popupModal) {
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(true);
+        switch (popupModal) {
+            case POPUP_NO_MODAL:
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                break;
+            case POPUP_MODAL:
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(true);
+                break;
+            case POPUP_SUPERMODAL:
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                break;
         }
         return dialog;
     }
