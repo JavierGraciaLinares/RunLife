@@ -133,16 +133,13 @@ public class FragmentEntrenamiento extends Fragment implements TextToSpeech.OnIn
                         Log.i(MainActivity.TAGDEVELOP, "Distancia entre 2 puntos: " + distanciaEntreDosPuntos + " metros");
                         if (distanciaEntreDosPuntos > 20 && distanciaEntreDosPuntos < 80) {
                             // Distancia Recorrida
-                            if (entrenamientoDatos.getnumeroLocalizacion() == 5) {
+                            if (entrenamientoDatos.getnumeroLocalizacion() != 5) {
                                 entrenamientoDatos.setDistanciaRecorrida(entrenamientoDatos.distanciaRecorrida += distanciaEntreDosPuntos);
                                 textViewDistanciaRecorrida.setText(entrenamientoDatos.getDistanciarecorridaEnKMString());
-                            }
-                            //Fuera del if pruebas, dentro correcto
-                            //Insertar PUNTO DE RUTA
-                            entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
-                            //Calcular y Mostrar VELOCIDAD MEDIA
-                            textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
 
+                                entrenamientoDatos.anyadirPuntoDeRutaRecorrido(localizacionActual);
+                                textViewVelocidadMedia.setText(String.format("%.2f", entrenamientoDatos.calcularKmXHMedia(SystemClock.elapsedRealtime(), cronometro.getBase())) + "Km/h"); //metros/segundo* tranformación para min/km
+                            }
                             entrenamientoDatos.setLocalizacionAnterior(localizacionActual);
                             entrenamientoDatos.numeroLocalizacion++;
                         }
